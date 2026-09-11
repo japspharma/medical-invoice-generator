@@ -1,0 +1,331 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #edf2f7;
+  color: #1e293b;
+}
+
+.app {
+  padding: 16px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* HEADER */
+
+.header {
+  background: #0f4c81;
+  color: white;
+  padding: 18px 24px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
+.company-info h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.company-info p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.header-right {
+  display: flex;
+  gap: 14px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-group label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.field-group input,
+.field-group select {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  min-width: 150px;
+}
+
+/* CUSTOMER SECTION */
+
+.customer-section {
+  margin-top: 14px;
+  background: white;
+  border-radius: 10px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 14px;
+  border: 1px solid #dbe4ee;
+}
+
+.customer-section input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+/* MEDICINE ENTRY */
+
+.medicine-entry {
+  margin-top: 14px;
+  background: white;
+  border: 1px solid #dbe4ee;
+  border-radius: 10px;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr 1fr 150px;
+  gap: 10px;
+}
+
+.medicine-entry input {
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.add-btn {
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* MAIN LAYOUT */
+
+.content-layout {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 14px;
+}
+
+.billing-area {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TABLE */
+
+.table-wrapper {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #dbe4ee;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #0f4c81;
+  color: white;
+}
+
+th {
+  padding: 12px;
+  font-size: 14px;
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+  background: #f8fafc;
+}
+
+.delete-btn {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* SHORTCUT BAR */
+
+.shortcut-bar {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.shortcut-bar button {
+  background: #0f4c81;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* SUMMARY */
+
+.summary-panel {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #dbe4ee;
+  padding: 18px;
+  height: fit-content;
+}
+
+.summary-panel h3 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #0f4c81;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.grand-total {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 2px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.print-btn {
+  width: 100%;
+  margin-top: 18px;
+  border: none;
+  background: #16a34a;
+  color: white;
+  padding: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  width: 100%;
+  margin-top: 10px;
+  border: none;
+  background: #0f4c81;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-section {
+    grid-template-columns: 1fr;
+  }
+
+  .medicine-entry {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+  }
+}
+
+/* ========================= */
+/* PRINT STYLES (A4 INVOICE) */
+/* ========================= */
+
+@media print {
+  body {
+    background: white;
+  }
+
+  .app {
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .shortcut-bar,
+  .print-btn,
+  .secondary-btn,
+  .add-btn {
+    display: none !important;
+  }
+
+  .medicine-entry {
+    display: none !important;
+  }
+
+  .header {
+    background: white !important;
+    color: black !important;
+    border: 2px solid black;
+    border-radius: 0;
+  }
+
+  .table-wrapper,
+  .summary-panel,
+  .customer-section {
+    border: 1px solid black;
+    box-shadow: none;
+  }
+
+  thead {
+    background: #e5e5e5 !important;
+    color: black !important;
+  }
+
+  th,
+  td {
+    border: 1px solid black;
+  }
+
+  .content-layout {
+    display: block;
+  }
+
+  .summary-panel {
+    margin-top: 20px;
+  }
+
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+}
