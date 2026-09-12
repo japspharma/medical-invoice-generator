@@ -10,8 +10,10 @@ function App() {
 );
 
   const [items, setItems] = useState([]);
+  
 
   const [showHistory, setShowHistory] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedInvoice, setSelectedInvoice] =
   useState(null);
 
@@ -188,6 +190,16 @@ useEffect(() => {
       window.print();
     }
   };
+  const filteredInvoices = invoices.filter((invoice) =>
+  invoice.customer_name
+    ?.toLowerCase()
+    .includes(searchTerm.toLowerCase()) ||
+  invoice.invoice_number
+    ?.toLowerCase()
+    .includes(searchTerm.toLowerCase()) ||
+  invoice.mobile_number
+    ?.includes(searchTerm)
+);
 
   return (
     <div className="app">
@@ -456,6 +468,17 @@ useEffect(() => {
     }}
   >
     <h2>Invoice History</h2>
+    <input
+  type="text"
+  placeholder="Search Invoice..."
+  value={searchTerm}
+  onChange={(e) => setSearchTerm(e.target.value)}
+  style={{
+    padding: "10px",
+    marginBottom: "15px",
+    width: "300px",
+  }}
+/>
 
     <table>
       <thead>
@@ -470,7 +493,7 @@ useEffect(() => {
       </thead>
 
       <tbody>
-        {invoices.map((invoice) => (
+        {filteredInvoices.map((invoice) => (
           <tr key={invoice.id}>
             <td>{invoice.invoice_number}</td>
             <td>{invoice.customer_name}</td>
