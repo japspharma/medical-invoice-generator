@@ -329,3 +329,115 @@ tbody tr:hover {
     margin: 10mm;
   }
 }
+.top-nav {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #2c3e50;
+  border-bottom: 2px solid #34495e;
+}
+
+.nav-btn {
+  padding: 8px 15px;
+  background: #34495e;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.nav-btn:hover {
+  background: #3d566e;
+}
+
+.nav-btn.active {
+  background: #27ae60;
+}
+.app-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  overflow: auto;
+}
+.page-content {
+  padding: 15px;
+  background: #f4f6f9;
+  min-height: calc(100vh - 120px);
+}
+@media print {
+
+  .app-layout {
+    height: auto !important;
+    display: block !important;
+  }
+
+  .page-content {
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  .invoice-print-container {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+  }
+
+}@media print {
+
+  .top-nav,
+  .header,
+  .shortcut-bar,
+  .invoice-actions {
+    display: none !important;
+  }
+
+  .page-content {
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .invoice-print-container {
+    margin: 0 !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+@media print {
+
+  .header-bar,
+  .top-nav {
+    display: none !important;
+  }
+
+  .page-content {
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .invoice-actions {
+    display: none !important;
+  }
+
+  .invoice-print-container {
+    margin: 0 !important;
+    padding: 20px !important;
+    border: none !important;
+    max-width: 100% !important;
+  }
+}
+@media print {
+
+  .no-print-layout > .header-bar,
+  .no-print-layout > .top-nav {
+    display: none !important;
+  }
+
+}

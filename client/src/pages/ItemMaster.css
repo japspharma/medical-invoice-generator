@@ -1,0 +1,58 @@
+.invoice-history-container {
+  padding: 10px;
+}
+
+.filters-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.search-input,
+.date-input {
+  padding: 6px;
+  border: 1px solid #ccc;
+}
+
+.btn-export,
+.btn-clear {
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.stats-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.stat-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: #fff;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table th {
+  background: #34495e;
+  color: white;
+  padding: 8px;
+}
+
+.invoices-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.view-btn {
+  padding: 4px 8px;
+  cursor: pointer;
+}
