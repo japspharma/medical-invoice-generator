@@ -1,0 +1,246 @@
+.page-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px 40px;
+  margin-bottom: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+  margin: 0 0 10px 0;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.settings-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  padding: 0 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settings-card {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.form-section h2 {
+  margin: 0 0 25px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 12px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #667eea;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-save {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-save:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-save:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.settings-info {
+  background: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+}
+
+.settings-info h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 10px;
+}
+
+.info-box {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 6px;
+  border-left: 4px solid #667eea;
+}
+
+.info-box p {
+  margin: 12px 0;
+  color: #555;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.info-box strong {
+  color: #333;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.loading-text {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+@media (max-width: 1024px) {
+  .settings-container {
+    grid-template-columns: 1fr;
+  }
+
+  .settings-info {
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    padding: 20px 20px;
+    margin-bottom: 20px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .page-header p {
+    font-size: 14px;
+  }
+
+  .settings-container {
+    padding: 0 20px;
+    gap: 20px;
+  }
+
+  .settings-card,
+  .settings-info {
+    padding: 20px;
+  }
+
+  .form-section h2 {
+    font-size: 16px;
+  }
+
+  .form-group label {
+    font-size: 12px;
+  }
+
+  .btn-save {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+.report-table,
+.history-table,
+.customer-table,
+.item-table {
+  border-collapse: collapse;
+  width: 100%;
+  background: white;
+}
+
+.report-table th,
+.history-table th,
+.customer-table th,
+.item-table th {
+  background: #34495e;
+  color: white;
+  padding: 8px;
+}
+
+.report-table td,
+.history-table td,
+.customer-table td,
+.item-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

@@ -1,0 +1,436 @@
+/* Desktop ERP Invoice System Styling */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Arial", sans-serif;
+  background: #f5f5f5;
+  font-size: 13px;
+}
+
+.erp-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+}
+
+/* HEADER BAR */
+.header-bar {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 8px 12px;
+  border-bottom: 1px solid #34495e;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 12px;
+}
+
+.header-company {
+  font-weight: bold;
+}
+
+.header-time {
+  margin-left: auto;
+}
+
+.header-info {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: 11px;
+}
+
+.header-info div {
+  display: flex;
+  gap: 5px;
+}
+
+.header-info label {
+  color: #bdc3c7;
+}
+
+/* MAIN LAYOUT */
+.erp-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  border-top: 1px solid #bdc3c7;
+}
+
+/* LEFT PANEL */
+.left-panel {
+  width: 220px;
+  background: #ecf0f1;
+  border-right: 1px solid #bdc3c7;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.left-panel h3 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #2c3e50;
+  border-bottom: 1px solid #bdc3c7;
+  padding-bottom: 4px;
+}
+
+.left-panel .form-group {
+  margin-bottom: 6px;
+}
+
+.left-panel label {
+  display: block;
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.left-panel input,
+.left-panel select {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #bdc3c7;
+  border-radius: 0;
+  font-size: 12px;
+  background: #fff;
+}
+
+.left-panel input:focus,
+.left-panel select:focus {
+  outline: none;
+  border-color: #3498db;
+  background: #e8f4f8;
+}
+
+/* CENTER GRID */
+.center-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.grid-header {
+  font-size: 11px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.grid-table {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #bdc3c7;
+  background: #fff;
+}
+
+.grid-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.grid-table th {
+  background: #34495e;
+  color: #ecf0f1;
+  padding: 4px 6px;
+  text-align: left;
+  border: 1px solid #2c3e50;
+  font-weight: 600;
+  height: 22px;
+}
+
+.grid-table td {
+  padding: 4px 6px;
+  border: 1px solid #ecf0f1;
+  height: 22px;
+}
+
+.grid-table tr {
+  background: #fff;
+}
+
+.grid-table tr:hover {
+  background: #f0f0f0;
+}
+
+.grid-table tr.active {
+  background: #e8f4f8;
+  border-left: 3px solid #3498db;
+}
+
+.grid-table input {
+  width: 100%;
+  border: none;
+  padding: 2px 4px;
+  font-size: 12px;
+  background: transparent;
+}
+
+.grid-table input:focus {
+  outline: none;
+  background: #fffacd;
+}
+
+.grid-product-search {
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.grid-product-search input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #bdc3c7;
+  border-radius: 0;
+  font-size: 12px;
+}
+
+.grid-product-list {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #bdc3c7;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 200px;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.grid-product-list div {
+  padding: 6px 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #ecf0f1;
+  font-size: 12px;
+}
+
+.grid-product-list div:hover {
+  background: #e8f4f8;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  width: 200px;
+  background: #ecf0f1;
+  border-left: 1px solid #bdc3c7;
+  padding: 8px;
+  overflow-y: auto;
+}
+
+.right-panel h3 {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  font-weight: bold;
+  color: #2c3e50;
+  border-bottom: 1px solid #bdc3c7;
+  padding-bottom: 4px;
+}
+
+.right-panel .form-group {
+  margin-bottom: 6px;
+}
+
+.right-panel label {
+  display: block;
+  font-size: 11px;
+  color: #555;
+  margin-bottom: 2px;
+  font-weight: 500;
+}
+
+.right-panel input,
+.right-panel select {
+  width: 100%;
+  padding: 4px 6px;
+  border: 1px solid #bdc3c7;
+  border-radius: 0;
+  font-size: 12px;
+  background: #fff;
+}
+
+.right-panel input:focus,
+.right-panel select:focus {
+  outline: none;
+  border-color: #3498db;
+  background: #e8f4f8;
+}
+
+/* STATUS BAR */
+.status-bar {
+  background: #34495e;
+  color: #ecf0f1;
+  padding: 6px 12px;
+  border-top: 1px solid #2c3e50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  gap: 20px;
+}
+
+.status-item {
+  display: flex;
+  gap: 5px;
+}
+
+.status-label {
+  color: #bdc3c7;
+}
+
+.status-value {
+  font-weight: bold;
+  min-width: 100px;
+  text-align: right;
+}
+
+/* FOOTER / SHORTCUTS */
+.erp-footer {
+  background: #2c3e50;
+  padding: 6px 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid #34495e;
+}
+
+.shortcut-btn {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+  border-radius: 0;
+  font-weight: 600;
+}
+
+.shortcut-btn:hover {
+  background: #2980b9;
+}
+
+.shortcut-btn:active {
+  background: #1f618d;
+}
+
+/* SCROLLBARS */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ecf0f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #95a5a6;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7f8c8d;
+}
+
+/* PRINT STYLES */
+@media print {
+  .header-bar,
+  .left-panel,
+  .right-panel,
+  .status-bar,
+  .erp-footer {
+    display: none !important;
+  }
+
+  .erp-main {
+    border: none;
+  }
+
+  .print-template {
+    display: block !important;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+  }
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 1024px) {
+  .erp-main {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    width: 100%;
+    max-height: 150px;
+    border: none;
+    border-bottom: 1px solid #bdc3c7;
+  }
+
+  .center-grid {
+    flex: 1;
+  }
+
+  .header-info {
+    gap: 10px;
+  }
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .print-template,
+  .print-template * {
+    visibility: visible;
+  }
+
+  .print-template {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .top-nav,
+  .header-bar,
+  .erp-footer,
+  .status-bar {
+    display: none !important;
+  }
+}
+.report-table,
+.history-table,
+.customer-table,
+.item-table {
+  border-collapse: collapse;
+  width: 100%;
+  background: white;
+}
+
+.report-table th,
+.history-table th,
+.customer-table th,
+.item-table th {
+  background: #34495e;
+  color: white;
+  padding: 8px;
+}
+
+.report-table td,
+.history-table td,
+.customer-table td,
+.item-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

@@ -1,0 +1,41 @@
+.invoice-history-container {
+  padding: 0;
+}
+
+.filters-section,
+.stats-section,
+.table-wrapper {
+  margin-bottom: 15px;
+}
+
+.invoices-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.invoices-table th {
+  background: #0f4c81;
+  color: white;
+  padding: 10px;
+}
+
+.invoices-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-input,
+.date-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.view-btn,
+.btn-export,
+.btn-clear {
+  background: #0f4c81;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+.top-nav {
+  display: flex;
+  background: #34495e;
+  padding: 8px;
+  gap: 8px;
+}
+
+.nav-btn {
+  color: white;
+  text-decoration: none;
+  padding: 6px 12px;
+}
+
+.nav-btn.active {
+  background: #3498db;
+}
