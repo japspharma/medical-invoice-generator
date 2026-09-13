@@ -38,7 +38,10 @@ const amountInWords = (amount) => {
 };
 
 const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
-  const company = { ...COMPANY_DEFAULTS, ...(settings || {}) };
+  const savedCompanyValues = Object.fromEntries(
+    Object.entries(settings || {}).filter(([, value]) => value !== null && value !== "")
+  );
+  const company = { ...COMPANY_DEFAULTS, ...savedCompanyValues };
   const items = invoice?.items || [];
   const taxAmount = Number(invoice?.gst_amount || 0);
   const isIntraState = invoice?.tax_type !== "INTER STATE";
