@@ -9,9 +9,6 @@ import CustomerMaster from "./pages/CustomerMaster";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 
-import AppLayout from "./components/layout/AppLayout";
-
-
 function App() {
   return (
     <Router>

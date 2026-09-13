@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import useKeyboardShortcuts from "../hooks/useKeyboardShortcuts";
@@ -12,7 +12,6 @@ import AppLayout from "../components/layout/AppLayout";
 function CustomerMaster() {
   const navigate = useNavigate();
   const [customers, setCustomers] = useState([]);
-  const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -30,8 +29,7 @@ function CustomerMaster() {
     loadCustomers();
   }, []);
 
-  useEffect(() => {
-    const filtered = customers.filter(
+  const filteredCustomers = useMemo(() => customers.filter(
       (c) =>
         (c.customer_name || "")
   .toLowerCase()
@@ -39,13 +37,11 @@ function CustomerMaster() {
 
 (c.mobile_number || "")
   .includes(searchTerm)
-    );
-    setFilteredCustomers(filtered);
-  }, [searchTerm, customers]);
+    ), [searchTerm, customers]);
 
   
 
-  const loadCustomers = async () => {
+  async function loadCustomers() {
   const { data, error } = await supabase
     .from("customers")
     .select("*");
@@ -58,7 +54,7 @@ function CustomerMaster() {
   } else {
     setCustomers(data || []);
   }
-};
+}
 
   const handleSave = async () => {
     if (!formData.customer_name.trim()) {
@@ -130,12 +126,14 @@ function CustomerMaster() {
   };
 
   const shortcuts = {
-  F2: () => navigate("/"),
+  F2: () => { resetForm(); setShowForm(true); },
   F6: () => navigate("/customers"),
   F7: () => navigate("/history"),
   F8: () => navigate("/items"),
   F9: () => navigate("/reports"),
   F10: () => navigate("/settings"),
+  "Ctrl+S": handleSave,
+  Escape: resetForm,
 };
 
   useKeyboardShortcuts(shortcuts);

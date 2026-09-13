@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import useKeyboardShortcuts from "../hooks/useKeyboardShortcuts";
@@ -20,13 +20,13 @@ function Reports() {
     loadInvoices();
   }, []);
 
-  const loadInvoices = async () => {
+  async function loadInvoices() {
     const { data } = await supabase
       .from("invoices")
       .select("*")
       .order("created_at", { ascending: false });
     setInvoices(data || []);
-  };
+  }
   
 
   const getFilteredInvoices = () => {

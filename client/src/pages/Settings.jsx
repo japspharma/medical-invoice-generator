@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import "./Settings.css";
 import AppLayout from "../components/layout/AppLayout";
@@ -6,6 +7,7 @@ import useKeyboardShortcuts from "../hooks/useKeyboardShortcuts";
 
 
 function Settings() {
+  const navigate = useNavigate();
   const [settings, setSettings] = useState({
     company_name: "JAPS HEALTHCARE",
     address: "No.3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600107",
@@ -27,10 +29,12 @@ function Settings() {
   F8: () => navigate("/items"),
   F9: () => navigate("/reports"),
   F10: () => navigate("/settings"),
+  "Ctrl+S": () => document.querySelector(".settings-form")?.requestSubmit(),
+  Escape: () => navigate("/"),
 };
 useKeyboardShortcuts(shortcuts);
 
-  const loadSettings = async () => {
+  async function loadSettings() {
     try {
       const { data, error } = await supabase
         .from("settings")
@@ -50,7 +54,7 @@ useKeyboardShortcuts(shortcuts);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;

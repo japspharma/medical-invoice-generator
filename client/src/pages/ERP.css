@@ -314,6 +314,10 @@ body {
   font-weight: 600;
 }
 
+.print-preview-container {
+  display: none;
+}
+
 .shortcut-btn:hover {
   background: #2980b9;
 }
@@ -386,27 +390,21 @@ body {
   }
 }
 @media print {
-  body * {
-    visibility: hidden;
+  .erp-container:has(.print-template) > :not(:has(.print-template)) {
+    display: none !important;
   }
 
-  .print-template,
-  .print-template * {
-    visibility: visible;
+  .erp-container:has(.print-template) .page-content > :not(:has(.print-template)) {
+    display: none !important;
   }
 
   .print-template {
-    position: absolute;
-    left: 0;
-    top: 0;
+    display: block !important;
     width: 100%;
   }
 
-  .top-nav,
-  .header-bar,
-  .erp-footer,
-  .status-bar {
-    display: none !important;
+  .print-preview-container {
+    display: block !important;
   }
 }
 .report-table,

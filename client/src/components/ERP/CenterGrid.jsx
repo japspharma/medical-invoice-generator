@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function CenterGrid({
   medicines,
@@ -12,7 +12,6 @@ function CenterGrid({
   const [searchTerm, setSearchTerm] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedField, setSelectedField] = useState(null);
-  const gridRef = useRef(null);
   const searchInputRef = useRef(null);
 
   const filteredMedicines = medicines.filter((m) =>
@@ -60,6 +59,15 @@ function CenterGrid({
   };
 
   const handleKeyDown = (e, index) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    if (index < items.length - 1) {
+      document.querySelector(`[data-row="${index + 1}"][data-field="qty"]`)?.focus();
+    } else {
+      searchInputRef.current?.focus();
+    }
+  }
+
   if (e.key === "ArrowDown") {
     e.preventDefault();
 
@@ -100,6 +108,15 @@ function CenterGrid({
   onBlur={() =>
   setTimeout(() => setShowDropdown(false), 500)
 }
+  onKeyDown={(event) => {
+    if (event.key === "Enter" && filteredMedicines.length > 0) {
+      event.preventDefault();
+      handleSelectMedicine(filteredMedicines[0]);
+    }
+    if (event.key === "Escape") {
+      setShowDropdown(false);
+    }
+  }}
 />
         {showDropdown && filteredMedicines.length > 0 && (
           <div className="grid-product-list">
@@ -147,7 +164,6 @@ function CenterGrid({
                 <td style={{ textAlign: "center" }}>{index + 1}</td>
                 <td>
                   <input
-                    ref={searchInputRef}
                     type="text"
                     value={item.product}
                     readOnly
@@ -156,7 +172,6 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                    ref={searchInputRef}
                     type="text"
                     value={item.hsn}
                     readOnly
@@ -164,7 +179,6 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                    ref={searchInputRef}
                     type="text"
                     value={item.batch}
                     readOnly
@@ -172,7 +186,6 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                    ref={searchInputRef}
                     type="text"
                     value={item.expiry}
                     readOnly
@@ -192,10 +205,17 @@ function CenterGrid({
   data-field="qty"
 />
                 </td>
-                
                 <td>
                   <input
-                    ref={searchInputRef}
+                    type="number"
+                    min="0"
+                    value={item.freeQty || 0}
+                    onChange={(e) => handleFieldChange(index, "freeQty", e.target.value)}
+                    onKeyDown={(e) => handleKeyDown(e, index)}
+                  />
+                </td>
+                <td>
+                  <input
                     type="text"
                     value={item.mrp.toFixed(2)}
                     readOnly
@@ -212,7 +232,6 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                  ref={searchInputRef}
                     type="text"
                     value={item.gst}
                     readOnly

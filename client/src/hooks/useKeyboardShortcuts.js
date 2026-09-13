@@ -1,37 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 function useKeyboardShortcuts(shortcuts = {}) {
+  const shortcutsRef = useRef(shortcuts);
+
+  useEffect(() => {
+    shortcutsRef.current = shortcuts;
+  }, [shortcuts]);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!e.key) return;
 
-      console.log("Pressed:", e.key);
-      console.log(e);
       const key = e.key.toUpperCase();
+      const activeShortcuts = shortcutsRef.current;
 
       // F keys
-      if (shortcuts[key]) {
+      if (activeShortcuts[key]) {
         e.preventDefault();
-        shortcuts[key]();
+        activeShortcuts[key]();
         return;
       }
 
-      // Ctrl + S
+      // Ctrl/Cmd shortcuts
       if ((e.ctrlKey || e.metaKey) && key === "S") {
         e.preventDefault();
-        shortcuts["Ctrl+S"]?.();
+        activeShortcuts["Ctrl+S"]?.();
       }
 
-      // Ctrl + N
       if ((e.ctrlKey || e.metaKey) && key === "N") {
         e.preventDefault();
-        shortcuts["Ctrl+N"]?.();
+        activeShortcuts["Ctrl+N"]?.();
+      }
+
+      if ((e.ctrlKey || e.metaKey) && key === "P") {
+        e.preventDefault();
+        activeShortcuts["Ctrl+P"]?.();
       }
 
       // Escape
       if (key === "ESCAPE") {
         e.preventDefault();
-        shortcuts["Escape"]?.();
+        activeShortcuts["Escape"]?.();
       }
     };
 
@@ -40,7 +49,7 @@ function useKeyboardShortcuts(shortcuts = {}) {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [shortcuts]);
+  }, []);
 }
 
 export default useKeyboardShortcuts;

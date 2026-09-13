@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import useKeyboardShortcuts from "../hooks/useKeyboardShortcuts";
@@ -12,7 +12,6 @@ import AppLayout from "../components/layout/AppLayout";
 function ItemMaster() {
   const navigate = useNavigate();
   const [medicines, setMedicines] = useState([]);
-  const [filteredMedicines, setFilteredMedicines] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -34,22 +33,19 @@ function ItemMaster() {
     loadMedicines();
   }, []);
 
-  useEffect(() => {
-    const filtered = medicines.filter((m) =>
+  const filteredMedicines = useMemo(() => medicines.filter((m) =>
       m.medicine_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (m.hsn && m.hsn.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-    setFilteredMedicines(filtered);
-  }, [searchTerm, medicines]);
+    ), [searchTerm, medicines]);
 
-  const loadMedicines = async () => {
+  async function loadMedicines() {
     const { data, error } = await supabase.from("medicines").select("*");
     if (error) {
       console.error("Error loading medicines:", error);
     } else {
       setMedicines(data || []);
     }
-  };
+  }
 
   const handleSave = async () => {
     if (!formData.medicine_name.trim()) {
@@ -141,17 +137,15 @@ function ItemMaster() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const getLowStockCount = () => {
-    return medicines.filter((m) => m.stock <= m.minimum_stock).length;
-  };
-
   const shortcuts = {
-  F2: () => navigate("/"),
+  F2: () => { resetForm(); setShowForm(true); },
   F6: () => navigate("/customers"),
   F7: () => navigate("/history"),
   F8: () => navigate("/items"),
   F9: () => navigate("/reports"),
   F10: () => navigate("/settings"),
+  "Ctrl+S": handleSave,
+  Escape: resetForm,
 };
 
   useKeyboardShortcuts(shortcuts);
