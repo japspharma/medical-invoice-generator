@@ -359,10 +359,8 @@ body {
     border: none;
   }
 
-  .print-template {
-    display: block !important;
-    width: 100%;
-    padding: 20px;
+  .erp-container:has(.print-preview-container) .print-template {
+    display: flex !important;
     background: #fff;
   }
 }
@@ -398,9 +396,8 @@ body {
     display: none !important;
   }
 
-  .print-template {
-    display: block !important;
-    width: 100%;
+  .erp-container:has(.print-preview-container) .print-template {
+    display: flex !important;
   }
 
   .print-preview-container {
