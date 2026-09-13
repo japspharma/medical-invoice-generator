@@ -203,8 +203,7 @@
   .top-nav,
   .page-footer,
   .invoice-actions,
-  nav,
-  header {
+  nav {
     display: none !important;
   }
 
