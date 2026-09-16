@@ -35,6 +35,7 @@ function ERP() {
   const [items, setItems] = useState([]);
   const [currentRowIndex, setCurrentRowIndex] = useState(null);
   const [medicines, setMedicines] = useState([]);
+  const [customers, setCustomers] = useState([]);
 
   const [settings, setSettings] = useState(null);
   const [printInvoice, setPrintInvoice] = useState(null);
@@ -48,13 +49,15 @@ function ERP() {
 
   useEffect(() => {
     const loadBillingData = async () => {
-      const [{ data: medicineData, error }, { data: settingsData }] = await Promise.all([
+      const [{ data: medicineData, error }, { data: settingsData }, { data: customerData }] = await Promise.all([
         supabase.from("medicines").select("*"),
         supabase.from("settings").select("*").eq("id", 1).maybeSingle(),
+        supabase.from("customers").select("customer_name, mobile_number, gst_number, address"),
       ]);
       if (error) console.error("Unable to load medicines:", error);
       else setMedicines(medicineData || []);
       setSettings(settingsData);
+      setCustomers(customerData || []);
     };
     loadBillingData();
   }, []);
@@ -139,45 +142,51 @@ const newItem = {
       created_at: new Date().toISOString(),
     };
 
-    const { error } = await supabase.from("invoices").insert([invoiceData]);
+    // One atomic call: inserts the invoice AND decrements stock in a single
+    // database transaction. If any item lacks stock, nothing is saved.
+    const { error } = await supabase.rpc(
+      "save_invoice_with_stock",
+      { p_invoice: invoiceData }
+    );
 
     if (error) {
       console.error(error);
-      alert("Failed to save invoice");
+      alert(error.message || "Failed to save invoice");
       savingRef.current = false;
       return false;
     }
 
-    // Update stock
-    for (let item of items) {
-  const medicine = medicines.find(
-    (m) => m.id === item.medicine_id
-  );
-
-  if (!medicine) continue;
-
-  const newStock = Math.max(
-  0,
-  (medicine.stock || 0) - item.qty
-);
-
-  const { error: stockError } = await supabase
-    .from("medicines")
-    .update({
-      stock: newStock,
-    })
-    .eq("id", item.medicine_id);
-
-  if (stockError) {
-    console.error("Invoice saved but stock update failed:", stockError);
-  }
-
-}
+    // Refresh local stock from the server so the UI stays accurate
+    const { data: freshMedicines } = await supabase.from("medicines").select("*");
+    if (freshMedicines) setMedicines(freshMedicines);
 
     alert("Invoice saved successfully");
     handleNewInvoice();
     savingRef.current = false;
     return invoiceData;
+  };
+
+  // Alphabetical customer search: typing "b" shows names starting with "b"
+  const customerSuggestions = useMemo(
+    () =>
+      customers
+        .filter((c) => c.customer_name)
+        .map((c) => ({
+          id: c.customer_name,
+          label: c.customer_name,
+          detail: [c.mobile_number, c.gst_number].filter(Boolean).join(" · "),
+          raw: c,
+        })),
+    [customers]
+  );
+
+  const handleCustomerSelect = (suggestion) => {
+    setCustomerName(suggestion.label);
+    if (suggestion.raw) {
+      setMobileNumber(suggestion.raw.mobile_number || "");
+      setGstNumber(suggestion.raw.gst_number || "");
+      setAddress(suggestion.raw.address || "");
+    }
   };
 
   const handleNewInvoice = () => {
@@ -209,6 +218,7 @@ const newItem = {
   F2: handleNewInvoice,
   F3: () => document.querySelector(".grid-product-search input")?.focus(),
   F4: saveInvoice,
+  F5: () => navigate("/purchase"),
   F6: () => navigate("/customers"),
   F7: () => navigate("/history"),
   F8: () => navigate("/items"),
@@ -237,6 +247,8 @@ const newItem = {
           setGstNumber={setGstNumber}
           address={address}
           setAddress={setAddress}
+          customerSuggestions={customerSuggestions}
+          onCustomerSelect={handleCustomerSelect}
         />
 
         <CenterGrid
@@ -276,6 +288,9 @@ const newItem = {
         </button>
         <button onClick={saveInvoice} className="shortcut-btn">
           F4: Save
+        </button>
+        <button onClick={() => navigate("/purchase")} className="shortcut-btn">
+          F5: Purchase
         </button>
         <button onClick={() => navigate("/customers")} className="shortcut-btn">
           F6: Customers

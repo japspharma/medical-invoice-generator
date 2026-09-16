@@ -117,6 +117,7 @@ function InvoiceHistory() {
   };
   const shortcuts = {
   F2: () => navigate("/"),
+  F5: () => navigate("/purchase"),
   F6: () => navigate("/customers"),
   F7: () => navigate("/history"),
   F8: () => navigate("/items"),

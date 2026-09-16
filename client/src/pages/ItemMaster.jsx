@@ -139,6 +139,7 @@ function ItemMaster() {
 
   const shortcuts = {
   F2: () => { resetForm(); setShowForm(true); },
+  F5: () => navigate("/purchase"),
   F6: () => navigate("/customers"),
   F7: () => navigate("/history"),
   F8: () => navigate("/items"),

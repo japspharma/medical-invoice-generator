@@ -1,4 +1,6 @@
 
+import TypeaheadInput from "../common/TypeaheadInput";
+
 function LeftPanel({
   customerName,
   setCustomerName,
@@ -10,6 +12,8 @@ function LeftPanel({
   setGstNumber,
   address,
   setAddress,
+  customerSuggestions = [],
+  onCustomerSelect,
 }) {
   return (
     <div className="left-panel">
@@ -17,10 +21,12 @@ function LeftPanel({
 
       <div className="form-group">
         <label>Customer Name</label>
-        <input
+        <TypeaheadInput
           value={customerName}
-          onChange={(e) => setCustomerName(e.target.value)}
-          placeholder="Customer name"
+          onChange={setCustomerName}
+          suggestions={customerSuggestions}
+          onSelect={onCustomerSelect}
+          placeholder="Type to search (a-z)..."
         />
       </div>
 

@@ -33,7 +33,7 @@ function InvoiceDetails() {
 
   const printInvoice = () => window.print();
   const shortcuts = {
-    F2: () => navigate("/"), F6: () => navigate("/customers"), F7: () => navigate("/history"),
+    F2: () => navigate("/"), F5: () => navigate("/purchase"), F6: () => navigate("/customers"), F7: () => navigate("/history"),
     F8: () => navigate("/items"), F9: printInvoice, F10: () => navigate("/settings"),
     "Ctrl+P": printInvoice, Escape: () => navigate("/history"),
   };

@@ -1,0 +1,231 @@
+.purchase-page {
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.purchase-columns {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  padding: 12px 16px;
+}
+
+/* Supplier panel mirrors the billing left panel */
+.supplier-panel {
+  width: 280px;
+  flex-shrink: 0;
+  background: #fff;
+  border: 1px solid #bdc3c7;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.supplier-panel h3 {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  color: #2c3e50;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 6px;
+}
+
+.supplier-panel .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.supplier-panel label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #7f8c8d;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.supplier-panel input,
+.supplier-panel textarea {
+  border: 1px solid #bdc3c7;
+  border-radius: 2px;
+  padding: 7px 8px;
+  font-size: 13px;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.supplier-panel input:focus,
+.supplier-panel textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+.supplier-panel textarea {
+  height: 64px;
+  resize: vertical;
+}
+
+/* Items grid */
+.purchase-grid-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #bdc3c7;
+  min-width: 0;
+}
+
+.grid-header {
+  background: #2c3e50;
+  color: #ecf0f1;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 8px 12px;
+}
+
+.purchase-table-wrap {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.purchase-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.purchase-table th {
+  background: #ecf0f1;
+  color: #2c3e50;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  padding: 8px 6px;
+  border-bottom: 2px solid #bdc3c7;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.purchase-table td {
+  border-bottom: 1px solid #ecf0f1;
+  padding: 2px 4px;
+}
+
+.purchase-table input {
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 6px 4px;
+  font-size: 13px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.purchase-table input:hover {
+  border-color: #d0d7de;
+}
+
+.purchase-table input:focus {
+  outline: none;
+  border-color: #3498db;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+.amount-cell {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  padding-right: 10px !important;
+}
+
+.row-delete-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 6px;
+  line-height: 1;
+}
+
+.row-delete-btn:hover {
+  color: #c0392b;
+}
+
+/* Footer actions */
+.purchase-footer {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid #bdc3c7;
+  background: #ecf0f1;
+}
+
+.purchase-footer .btn-primary {
+  background: #3498db;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.purchase-footer .btn-primary:hover {
+  background: #2980b9;
+}
+
+.purchase-footer .btn-primary:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.purchase-footer .save-btn {
+  background: #27ae60;
+}
+
+.purchase-footer .save-btn:hover {
+  background: #219a52;
+}
+
+.purchase-footer .btn-secondary {
+  background: #fff;
+  color: #2c3e50;
+  border: 1px solid #bdc3c7;
+  padding: 8px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.purchase-footer .btn-secondary:hover {
+  background: #f7f9f9;
+}
+
+/* Status bar */
+.purchase-statusbar {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  background: #2c3e50;
+  color: #ecf0f1;
+  font-size: 12px;
+  padding: 8px 16px;
+  border-top: 2px solid #34495e;
+}
+
+.purchase-statusbar .statusbar-total {
+  margin-left: auto;
+  font-weight: 700;
+  color: #f39c12;
+}

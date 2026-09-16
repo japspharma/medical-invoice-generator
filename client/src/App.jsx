@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import ERP from "./pages/ERP";
+import Purchase from "./pages/Purchase";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import InvoiceDetails from "./pages/InvoiceDetails";
 import ItemMaster from "./pages/ItemMaster";
@@ -16,6 +17,7 @@ function App() {
      
       <Routes>
         <Route path="/" element={<ERP />} />
+        <Route path="/purchase" element={<Purchase />} />
         <Route path="/history" element={<InvoiceHistory />} />
         <Route path="/history/:id" element={<InvoiceDetails />} />
         <Route path="/items" element={<ItemMaster />} />
