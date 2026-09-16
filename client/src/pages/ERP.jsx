@@ -15,6 +15,7 @@ import AppLayout from "../components/layout/AppLayout";
 
 
 
+// Fallback only — real numbers come from the server via get_next_invoice_number()
 const createInvoiceNumber = () => `INV-${Date.now()}`;
 
 function ERP() {
@@ -47,6 +48,18 @@ function ERP() {
   // Print ref
   const printRef = useRef(null);
 
+  // Fetch the next invoice number from the server (settings prefix + sequence).
+  // Falls back to the timestamp number if the RPC isn't deployed yet.
+  const fetchNextInvoiceNumber = async () => {
+    const { data, error } = await supabase.rpc("get_next_invoice_number");
+    if (!error && data) {
+      setInvoiceNumber(data);
+    } else {
+      if (error) console.warn("Server invoice numbering unavailable, using fallback:", error.message);
+      setInvoiceNumber(createInvoiceNumber());
+    }
+  };
+
   useEffect(() => {
     const loadBillingData = async () => {
       const [{ data: medicineData, error }, { data: settingsData }, { data: customerData }] = await Promise.all([
@@ -58,6 +71,7 @@ function ERP() {
       else setMedicines(medicineData || []);
       setSettings(settingsData);
       setCustomers(customerData || []);
+      await fetchNextInvoiceNumber();
     };
     loadBillingData();
   }, []);
@@ -156,9 +170,14 @@ const newItem = {
       return false;
     }
 
-    // Refresh local stock from the server so the UI stays accurate
-    const { data: freshMedicines } = await supabase.from("medicines").select("*");
+    // Refresh local stock and customers so the UI/typeahead stay accurate
+    // (the RPC also auto-saves brand-new customers)
+    const [{ data: freshMedicines }, { data: freshCustomers }] = await Promise.all([
+      supabase.from("medicines").select("*"),
+      supabase.from("customers").select("customer_name, mobile_number, gst_number, address"),
+    ]);
     if (freshMedicines) setMedicines(freshMedicines);
+    if (freshCustomers) setCustomers(freshCustomers);
 
     alert("Invoice saved successfully");
     handleNewInvoice();
@@ -190,7 +209,7 @@ const newItem = {
   };
 
   const handleNewInvoice = () => {
-    setInvoiceNumber(createInvoiceNumber());
+    fetchNextInvoiceNumber();
     setCustomerName("");
     setMobileNumber("");
     setDoctorName("");

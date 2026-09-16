@@ -13,6 +13,7 @@ function Settings() {
     address: "No.3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600107",
     gst_number: "33ANBPV8835E2ZT",
     phone_number: "",
+    invoice_prefix: "INV",
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -176,6 +177,26 @@ useKeyboardShortcuts(shortcuts);
               </div>
             </div>
 
+            <div className="form-section">
+              <h2>Invoice Settings</h2>
+
+              <div className="form-group">
+                <label htmlFor="invoice_prefix">Invoice Number Prefix</label>
+                <input
+                  type="text"
+                  id="invoice_prefix"
+                  name="invoice_prefix"
+                  value={settings.invoice_prefix || "INV"}
+                  onChange={handleChange}
+                  maxLength={10}
+                  placeholder="e.g. JAPS (invoices become JAPS-000001)"
+                />
+                <small style={{ color: "#7f8c8d", fontSize: 11 }}>
+                  New invoices will use this prefix + a 6-digit running number from the server.
+                </small>
+              </div>
+            </div>
+
             <div className="form-actions">
               <button
                 type="submit"
@@ -212,6 +233,9 @@ useKeyboardShortcuts(shortcuts);
             </p>
             <p>
               <strong>Phone:</strong> {settings.phone_number || "Not set"}
+            </p>
+            <p>
+              <strong>Invoice Prefix:</strong> {settings.invoice_prefix || "INV"}
             </p>
           </div>
         </div>
