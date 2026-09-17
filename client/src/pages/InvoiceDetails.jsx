@@ -34,7 +34,7 @@ function InvoiceDetails() {
   const printInvoice = () => window.print();
   const shortcuts = {
     F2: () => navigate("/"), F5: () => navigate("/purchase"), F6: () => navigate("/customers"), F7: () => navigate("/history"),
-    F8: () => navigate("/items"), F9: printInvoice, F10: () => navigate("/settings"),
+    F8: () => navigate("/items"), F9: printInvoice, F10: () => navigate("/settings"), F11: () => navigate("/purchase-history"),
     "Ctrl+P": printInvoice, Escape: () => navigate("/history"),
   };
   useKeyboardShortcuts(shortcuts);

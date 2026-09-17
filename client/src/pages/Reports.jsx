@@ -129,6 +129,7 @@ function Reports() {
   F8: () => navigate("/items"),
   F9: () => navigate("/reports"),
   F10: () => navigate("/settings"),
+  F11: () => navigate("/purchase-history"),
 };
   useKeyboardShortcuts(shortcuts);
 

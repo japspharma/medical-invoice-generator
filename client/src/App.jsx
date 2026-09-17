@@ -5,6 +5,7 @@ import "./App.css";
 import Login from "./pages/Login";
 import ERP from "./pages/ERP";
 import Purchase from "./pages/Purchase";
+import PurchaseHistory from "./pages/PurchaseHistory";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import InvoiceDetails from "./pages/InvoiceDetails";
 import ItemMaster from "./pages/ItemMaster";
@@ -51,6 +52,14 @@ function App() {
             element={
               <RequireAuth>
                 <Purchase />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/purchase-history"
+            element={
+              <RequireAuth>
+                <PurchaseHistory />
               </RequireAuth>
             }
           />

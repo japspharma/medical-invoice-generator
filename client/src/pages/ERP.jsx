@@ -243,6 +243,7 @@ const newItem = {
   F8: () => navigate("/items"),
   F9: handlePrint,
   F10: () => navigate("/settings"),
+  F11: () => navigate("/purchase-history"),
   "Ctrl+N": handleNewInvoice,
   "Ctrl+S": saveInvoice,
   "Ctrl+P": handlePrint,
@@ -325,6 +326,9 @@ const newItem = {
         </button>
         <button onClick={() => navigate("/settings")} className="shortcut-btn">
           F10: Settings
+        </button>
+        <button onClick={() => navigate("/purchase-history")} className="shortcut-btn">
+          F11: Purchases
         </button>
       </div>
 
