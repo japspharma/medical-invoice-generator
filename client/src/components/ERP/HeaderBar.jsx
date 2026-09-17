@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 function HeaderBar() {
+  const { user, signOut } = useAuth();
   const [currentTime, setCurrentTime] = useState(
     new Date().toLocaleTimeString("en-IN")
   );
@@ -36,12 +38,25 @@ function HeaderBar() {
         <div>
           <label>Date:</label>
           <span>{currentDate}</span>
-        </div>
-
-        <div>
+        </div>        <div>
           <label>Time:</label>
           <span>{currentTime}</span>
         </div>
+
+        {user && (
+          <div className="header-user">
+            <span className="header-user-email" title={user.email}>
+              {user.email}
+            </span>
+            <button
+              type="button"
+              className="header-logout"
+              onClick={signOut}
+            >
+              Sign out
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
