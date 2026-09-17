@@ -152,6 +152,7 @@ function CenterGrid({
               <th style={{ width: "45px" }}>RATE</th>
               <th style={{ width: "40px" }}>GST%</th>
               <th style={{ width: "60px" }}>AMOUNT</th>
+              <th style={{ width: "34px" }} title="Remove item">✕</th>
             </tr>
           </thead>
           <tbody>
@@ -240,6 +241,19 @@ function CenterGrid({
                 <td style={{ textAlign: "right", color: "#2ecc71", fontWeight: "bold" }}>
                   ₹{Number(item.amount || 0).toFixed(2)}
                 </td>
+                <td style={{ textAlign: "center" }}>
+                  <button
+                    type="button"
+                    className="row-remove-btn"
+                    title="Remove this medicine"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDeleteItem(index);
+                    }}
+                  >
+                    ✕
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -251,7 +265,7 @@ function CenterGrid({
           <span>No items. Start typing product name or press F3 to search...</span>
         ) : (
           <span>
-            {items.length} item(s) | Use ↑↓ to move rows | Enter to next field | Delete to remove
+            {items.length} item(s) | Use ↑↓ to move rows | Enter to next field | ✕ or Delete key to remove
           </span>
         )}
       </div>

@@ -348,6 +348,25 @@ body {
   font-weight: 600;
 }
 
+.row-remove-btn {
+  background: transparent;
+  color: #c0392b;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 22px;
+  height: 22px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.row-remove-btn:hover {
+  background: #fdecea;
+  border-color: #e74c3c;
+  color: #a53125;
+}
+
 .print-preview-container {
   display: none;
 }
