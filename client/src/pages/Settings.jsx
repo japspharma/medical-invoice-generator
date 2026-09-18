@@ -191,7 +191,7 @@ useKeyboardShortcuts(shortcuts);
                   name="drug_license"
                   value={settings.drug_license}
                   onChange={handleChange}
-                  placeholder="e.g. TN-Z05-20B-00168 / 21B-00168"
+                  placeholder="e.g. TN-Z05-20B-00168 / TN-Z05-21B-00168"
                 />
                 <small style={{ color: "#7f8c8d", fontSize: 11 }}>
                   Prints next to the GSTIN chip on the invoice.
@@ -290,7 +290,7 @@ useKeyboardShortcuts(shortcuts);
                   name="branch"
                   value={settings.branch}
                   onChange={handleChange}
-                  placeholder="e.g. Koyambedu Branch, Chennai"
+                  placeholder="e.g. Nungambakkam Branch, Chennai"
                 />
               </div>
             </div>

@@ -4,15 +4,15 @@ import "./InvoicePrintTemplate.css";
 const COMPANY_DEFAULTS = {
   company_name: "JAPS HEALTHCARE",
   address: "No. 3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600 107, Tamil Nadu",
-  phone: "+91 44 2479 XXXX , +91 98400 XXXXX",
-  email: "billing@japshealthcare.com",
+  phone: "+91 9940055522",
+  email: "japspharma@gmail.com",
   gstin: "33ANBPV8835E2ZT",
-  drug_license: "TN-Z05-20B-00168 / 21B-00168",
+  drug_license: "TN-Z05-20B-00168 / TN-Z05-21B-00168",
   account_name: "JAPS HEALTHCARE",
   bank_name: "HDFC BANK LTD",
-  account_number: "592099400059095",
+  account_number: "59209940059095",
   ifsc_code: "HDFC0000082",
-  branch: "Koyambedu Branch, Chennai",
+  branch: "Nungambakkam Branch, Chennai",
 };
 
 const ITEM_ROWS = 12; // fixed row count like the printed format

@@ -14,13 +14,12 @@ alter table settings add column if not exists account_number text not null defau
 alter table settings add column if not exists ifsc_code     text not null default '';
 alter table settings add column if not exists branch        text not null default '';
 
--- Seed with the values already printed on the invoice so nothing
--- changes visually until you edit them.
+-- Seed with the correct company values (per the real invoice format).
 update settings set
-  drug_license   = coalesce(nullif(drug_license,    ''), 'TN-Z05-20B-00168 / 21B-00168'),
+  drug_license   = coalesce(nullif(drug_license,    ''), 'TN-Z05-20B-00168 / TN-Z05-21B-00168'),
   account_name   = coalesce(nullif(account_name,    ''), 'JAPS HEALTHCARE'),
   bank_name      = coalesce(nullif(bank_name,       ''), 'HDFC BANK LTD'),
-  account_number = coalesce(nullif(account_number,  ''), '592099400059095'),
+  account_number = coalesce(nullif(account_number,  ''), '59209940059095'),
   ifsc_code      = coalesce(nullif(ifsc_code,       ''), 'HDFC0000082'),
-  branch         = coalesce(nullif(branch,          ''), 'Koyambedu Branch, Chennai')
+  branch         = coalesce(nullif(branch,          ''), 'Nungambakkam Branch, Chennai')
 where id = 1;
