@@ -7,7 +7,7 @@ const COMPANY_DEFAULTS = {
   address: "No. 3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600 107, Tamil Nadu",
   phone: "+91 44 2479 XXXX , +91 98400 XXXXX",
   email: "billing@japshealthcare.com",
-  gst_number: "33ANBPV8835E2ZT",
+  gstin: "33ANBPV8835E2ZT",
   drug_license: "TN-Z05-20B-00168 / 21B-00168",
   account_name: "JAPS HEALTHCARE",
   bank_name: "HDFC BANK LTD",
@@ -124,7 +124,7 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
               Phone: {company.phone} <span className="pt-sep">|</span> Email: {company.email}
             </p>
             <div className="pt-chips">
-              <span className="pt-chip">GSTIN: {company.gst_number}</span>
+              <span className="pt-chip">GSTIN: {company.gstin}</span>
               <span className="pt-chip">DL No: {company.drug_license}</span>
             </div>
           </div>

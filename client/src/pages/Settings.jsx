@@ -6,15 +6,26 @@ import AppLayout from "../components/layout/AppLayout";
 import useKeyboardShortcuts from "../hooks/useKeyboardShortcuts";
 
 
+// Defaults used when a field has never been saved (DB value null/empty).
+// Keys MUST match the real settings table columns: gstin, phone, drug_license,
+// account_name, bank_name, account_number, ifsc_code, branch, invoice_prefix.
+const DEFAULT_SETTINGS = {
+  company_name: "JAPS HEALTHCARE",
+  address: "No.3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600107",
+  gstin: "33ANBPV8835E2ZT",
+  drug_license: "",
+  phone: "",
+  invoice_prefix: "INV",
+  account_name: "",
+  bank_name: "",
+  account_number: "",
+  ifsc_code: "",
+  branch: "",
+};
+
 function Settings() {
   const navigate = useNavigate();
-  const [settings, setSettings] = useState({
-    company_name: "JAPS HEALTHCARE",
-    address: "No.3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600107",
-    gst_number: "33ANBPV8835E2ZT",
-    phone_number: "",
-    invoice_prefix: "INV",
-  });
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -50,7 +61,14 @@ useKeyboardShortcuts(shortcuts);
       }
 
       if (data) {
-        setSettings(data);
+        // Merge over defaults so never-saved (null/empty) fields keep
+        // sensible values instead of blanking the form.
+        setSettings({
+          ...DEFAULT_SETTINGS,
+          ...Object.fromEntries(
+            Object.entries(data).filter(([, v]) => v !== null && v !== "")
+          ),
+        });
       }
     } catch (error) {
       console.error("Error:", error);
@@ -153,12 +171,12 @@ useKeyboardShortcuts(shortcuts);
               </div>
 
               <div className="form-group">
-                <label htmlFor="gst_number">GST Number</label>
+                <label htmlFor="gstin">GST Number</label>
                 <input
                   type="text"
-                  id="gst_number"
-                  name="gst_number"
-                  value={settings.gst_number}
+                  id="gstin"
+                  name="gstin"
+                  value={settings.gstin}
                   onChange={handleChange}
                   placeholder="Enter GST number"
                   required
@@ -166,12 +184,27 @@ useKeyboardShortcuts(shortcuts);
               </div>
 
               <div className="form-group">
-                <label htmlFor="phone_number">Phone Number</label>
+                <label htmlFor="drug_license">DL No. (Drug License)</label>
+                <input
+                  type="text"
+                  id="drug_license"
+                  name="drug_license"
+                  value={settings.drug_license}
+                  onChange={handleChange}
+                  placeholder="e.g. TN-Z05-20B-00168 / 21B-00168"
+                />
+                <small style={{ color: "#7f8c8d", fontSize: 11 }}>
+                  Prints next to the GSTIN chip on the invoice.
+                </small>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
                 <input
                   type="tel"
-                  id="phone_number"
-                  name="phone_number"
-                  value={settings.phone_number}
+                  id="phone"
+                  name="phone"
+                  value={settings.phone}
                   onChange={handleChange}
                   placeholder="Enter phone number"
                 />
@@ -195,6 +228,70 @@ useKeyboardShortcuts(shortcuts);
                 <small style={{ color: "#7f8c8d", fontSize: 11 }}>
                   New invoices will use this prefix + a 6-digit running number from the server.
                 </small>
+              </div>
+            </div>
+
+            <div className="form-section">
+              <h2>Bank Details (printed on invoice)</h2>
+
+              <div className="form-group">
+                <label htmlFor="account_name">Account Name</label>
+                <input
+                  type="text"
+                  id="account_name"
+                  name="account_name"
+                  value={settings.account_name}
+                  onChange={handleChange}
+                  placeholder="e.g. JAPS HEALTHCARE"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="bank_name">Bank Name</label>
+                <input
+                  type="text"
+                  id="bank_name"
+                  name="bank_name"
+                  value={settings.bank_name}
+                  onChange={handleChange}
+                  placeholder="e.g. HDFC BANK LTD"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="account_number">Account Number</label>
+                <input
+                  type="text"
+                  id="account_number"
+                  name="account_number"
+                  value={settings.account_number}
+                  onChange={handleChange}
+                  placeholder="Enter account number"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="ifsc_code">IFSC Code</label>
+                <input
+                  type="text"
+                  id="ifsc_code"
+                  name="ifsc_code"
+                  value={settings.ifsc_code}
+                  onChange={handleChange}
+                  placeholder="e.g. HDFC0000082"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="branch">Branch</label>
+                <input
+                  type="text"
+                  id="branch"
+                  name="branch"
+                  value={settings.branch}
+                  onChange={handleChange}
+                  placeholder="e.g. Koyambedu Branch, Chennai"
+                />
               </div>
             </div>
 
@@ -230,10 +327,16 @@ useKeyboardShortcuts(shortcuts);
               <strong>Address:</strong> {settings.address}
             </p>
             <p>
-              <strong>GST:</strong> {settings.gst_number}
+              <strong>GST:</strong> {settings.gstin}
             </p>
             <p>
-              <strong>Phone:</strong> {settings.phone_number || "Not set"}
+              <strong>DL No.:</strong> {settings.drug_license || "Not set"}
+            </p>
+            <p>
+              <strong>Phone:</strong> {settings.phone || "Not set"}
+            </p>
+            <p>
+              <strong>Bank:</strong> {settings.bank_name || "Not set"} — {settings.account_number || "—"}
             </p>
             <p>
               <strong>Invoice Prefix:</strong> {settings.invoice_prefix || "INV"}
