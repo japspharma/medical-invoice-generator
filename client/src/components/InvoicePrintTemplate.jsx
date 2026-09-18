@@ -3,7 +3,6 @@ import "./InvoicePrintTemplate.css";
 
 const COMPANY_DEFAULTS = {
   company_name: "JAPS HEALTHCARE",
-  tagline: "PHARMACEUTICAL & HEALTHCARE FORMULATIONS",
   address: "No. 3, Thiruveethiamman Koil Street, Koyambedu, Chennai - 600 107, Tamil Nadu",
   phone: "+91 44 2479 XXXX , +91 98400 XXXXX",
   email: "billing@japshealthcare.com",
@@ -118,7 +117,6 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
         <section className="pt-top">
           <div className="pt-company">
             <h1>{company.company_name}</h1>
-            <p className="pt-tagline">{company.tagline}</p>
             <p className="pt-addr">{company.address}</p>
             <p className="pt-addr">
               Phone: {company.phone} <span className="pt-sep">|</span> Email: {company.email}

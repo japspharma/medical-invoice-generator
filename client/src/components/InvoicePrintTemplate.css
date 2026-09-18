@@ -59,14 +59,6 @@
   letter-spacing: 0.5px;
 }
 
-.pt-tagline {
-  margin: 1px 0 0;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  color: #333;
-}
-
 .pt-addr {
   margin: 1px 0 0;
   font-size: 9.5px;
@@ -387,11 +379,14 @@
 }
 
 /* ---- footer ---- */
+/* Sits directly after the content above (no bottom-pinning): terms and
+   signature follow the bank/summary boxes instead of jumping to the
+   bottom of the A4 page. */
 .pt-footer {
   display: grid;
   grid-template-columns: 1fr 220px;
   gap: 10px;
-  margin-top: auto;
+  margin-top: 10px;
   padding-top: 8px;
 }
 
