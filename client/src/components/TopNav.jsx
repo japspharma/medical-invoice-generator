@@ -6,7 +6,7 @@ function TopNav() {
   const menuItems = [
     { path: "/", label: "Billing" },
     { path: "/purchase", label: "Purchase" },
-    { path: "/purchase-history", label: "Purchases" },
+    { path: "/purchase-history", label: "Purchase History" },
     { path: "/items", label: "Items" },
     { path: "/customers", label: "Customers" },
     { path: "/history", label: "History" },

@@ -328,7 +328,7 @@ const newItem = {
           F10: Settings
         </button>
         <button onClick={() => navigate("/purchase-history")} className="shortcut-btn">
-          F11: Purchases
+          F11: Purchase History
         </button>
       </div>
 
