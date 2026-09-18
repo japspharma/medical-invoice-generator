@@ -140,9 +140,9 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
             <div className="pt-buyer-name">{invoice?.customer_name || "Walk-in Customer"}</div>
             {invoice?.address ? <p className="pt-buyer-addr">{invoice.address}</p> : null}
             <div className="pt-kv">
-              <span className="pt-kv-label">Doctor / Clinic:</span>
+              <span className="pt-kv-label">Doctor Reg:</span>
               <span className="pt-kv-dots" />
-              <span className="pt-kv-value">{invoice?.doctor_name || "-"}</span>
+              <span className="pt-kv-value">{invoice?.doctor_reg || "-"}</span>
             </div>
             <div className="pt-kv">
               <span className="pt-kv-label">Phone:</span>

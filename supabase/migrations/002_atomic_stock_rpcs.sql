@@ -36,14 +36,14 @@ begin
 
   -- Insert the invoice first (so we can return its id)
   insert into invoices (
-    invoice_number, customer_name, mobile_number, doctor_name,
+    invoice_number, customer_name, mobile_number, doctor_reg,
     gst_number, address, tax_type, payment_type,
     subtotal, gst_amount, grand_total, items, created_at
   ) values (
     p_invoice->>'invoice_number',
     p_invoice->>'customer_name',
     p_invoice->>'mobile_number',
-    p_invoice->>'doctor_name',
+    p_invoice->>'doctor_reg',
     p_invoice->>'gst_number',
     p_invoice->>'address',
     p_invoice->>'tax_type',
@@ -111,6 +111,7 @@ declare
   v_add_qty       numeric;
   v_purchase_id   bigint;
   v_supplier      text;
+  v_expiry        date;
 begin
   -- Basic sanity: supplier + at least one valid line
   v_supplier := nullif(trim(coalesce(p_purchase->>'supplier_name', '')), '');
@@ -154,6 +155,14 @@ begin
       raise exception 'Item % has invalid quantity', v_line->>'medicine_name';
     end if;
 
+    -- Parse the expiry once, as a proper DATE (handles empty strings).
+    -- Invalid dates fall back to keeping the existing value.
+    begin
+      v_expiry := nullif(trim(coalesce(v_line->>'expiry', '')), '')::date;
+    exception when others then
+      v_expiry := null;
+    end;
+
     -- Find existing medicine by name (case-insensitive). If the purchase
     -- carries a batch, prefer a row with the same name; keep it simple:
     -- the app historically works on one master row per medicine name.
@@ -168,7 +177,7 @@ begin
       update medicines set
         stock   = stock + v_add_qty,
         batch   = coalesce(nullif(trim(v_line->>'batch'), ''), batch),
-        expiry  = coalesce(nullif(trim(v_line->>'expiry'), ''), expiry),
+        expiry  = coalesce(v_expiry, expiry),
         rate    = coalesce(nullif((v_line->>'rate')::numeric, 0), rate),
         mrp     = coalesce(nullif((v_line->>'mrp')::numeric, 0), mrp),
         gst     = coalesce(nullif((v_line->>'gst')::numeric, 0), gst),
@@ -182,7 +191,7 @@ begin
         trim(v_line->>'medicine_name'),
         coalesce(v_line->>'hsn', ''),
         coalesce(v_line->>'batch', ''),
-        coalesce(v_line->>'expiry', ''),
+        v_expiry,
         coalesce((v_line->>'mrp')::numeric, 0),
         coalesce((v_line->>'rate')::numeric, 0),
         coalesce((v_line->>'gst')::numeric, 0),

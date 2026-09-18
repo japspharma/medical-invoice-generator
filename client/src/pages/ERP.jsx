@@ -28,7 +28,7 @@ function ERP() {
   // Customer details
   const [customerName, setCustomerName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
-  const [doctorName, setDoctorName] = useState("");
+  const [doctorReg, setDoctorReg] = useState("");
   const [gstNumber, setGstNumber] = useState("");
   const [address, setAddress] = useState("");
 
@@ -144,7 +144,7 @@ const newItem = {
       invoice_number: invoiceNumber,
       customer_name: customerName,
       mobile_number: mobileNumber,
-      doctor_name: doctorName,
+      doctor_reg: doctorReg,
       gst_number: gstNumber,
       address: address,
       tax_type: taxType,
@@ -212,7 +212,7 @@ const newItem = {
     fetchNextInvoiceNumber();
     setCustomerName("");
     setMobileNumber("");
-    setDoctorName("");
+    setDoctorReg("");
     setGstNumber("");
     setAddress("");
     setItems([]);
@@ -261,8 +261,8 @@ const newItem = {
           setCustomerName={setCustomerName}
           mobileNumber={mobileNumber}
           setMobileNumber={setMobileNumber}
-          doctorName={doctorName}
-          setDoctorName={setDoctorName}
+          doctorReg={doctorReg}
+          setDoctorReg={setDoctorReg}
           gstNumber={gstNumber}
           setGstNumber={setGstNumber}
           address={address}
@@ -341,7 +341,7 @@ const newItem = {
             created_at: currentDate,
             customer_name: customerName,
             mobile_number: mobileNumber,
-            doctor_name: doctorName,
+            doctor_reg: doctorReg,
             gst_number: gstNumber,
             address: address,
             tax_type: taxType,

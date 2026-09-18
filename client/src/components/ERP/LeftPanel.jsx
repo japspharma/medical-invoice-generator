@@ -6,8 +6,8 @@ function LeftPanel({
   setCustomerName,
   mobileNumber,
   setMobileNumber,
-  doctorName,
-  setDoctorName,
+  doctorReg,
+  setDoctorReg,
   gstNumber,
   setGstNumber,
   address,
@@ -40,11 +40,11 @@ function LeftPanel({
       </div>
 
       <div className="form-group">
-        <label>Doctor</label>
+        <label>Doctor Reg</label>
         <input
-          value={doctorName}
-          onChange={(e) => setDoctorName(e.target.value)}
-          placeholder="Doctor name"
+          value={doctorReg}
+          onChange={(e) => setDoctorReg(e.target.value)}
+          placeholder="Doctor reg no"
         />
       </div>
 
