@@ -55,6 +55,11 @@ function CenterGrid({
       updates.amount = qty * rate;
     }
 
+    if (field === "freeQty") {
+      // Free units are charged nothing; keep amount = qty * rate
+      updates.freeQty = parseFloat(value) || 0;
+    }
+
     onUpdateItem(index, updates);
   };
 

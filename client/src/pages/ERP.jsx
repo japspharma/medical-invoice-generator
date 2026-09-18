@@ -76,6 +76,8 @@ function ERP() {
     loadBillingData();
   }, []);
 
+  // Free units leave stock too but are not charged, so totals use QTY only
+  // while the stock check (both client pre-check and DB RPC) uses QTY + FREE.
   const { subtotal, gstAmount, grandTotal } = useMemo(() => {
     const result = items.reduce((totals, item) => {
       const amount = Number(item.qty || 0) * Number(item.rate || 0);
@@ -132,7 +134,8 @@ const newItem = {
     }
     const insufficientItem = items.find((item) => {
       const medicine = medicines.find((candidate) => candidate.id === item.medicine_id);
-      return medicine && Number(item.qty) > Number(medicine.stock || 0);
+      const units = Number(item.qty || 0) + Number(item.freeQty || 0);
+      return medicine && units > Number(medicine.stock || 0);
     });
     if (insufficientItem) {
       alert(`Insufficient stock for ${insufficientItem.product}`);
