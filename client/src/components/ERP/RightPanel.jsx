@@ -7,6 +7,12 @@ function RightPanel({
   setTaxType,
   paymentType,
   setPaymentType,
+  partysOrderNo,
+  setPartysOrderNo,
+  orderDate,
+  setOrderDate,
+  dispatchedThrough,
+  setDispatchedThrough,
 }) {
   return (
     <div className="right-panel">
@@ -47,6 +53,33 @@ function RightPanel({
           <option>UPI</option>
           <option>CARD</option>
         </select>
+      </div>
+
+      <div className="form-group">
+        <label>Party's Order No</label>
+        <input
+          value={partysOrderNo}
+          onChange={(e) => setPartysOrderNo(e.target.value)}
+          placeholder="--"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Order Date</label>
+        <input
+          value={orderDate}
+          onChange={(e) => setOrderDate(e.target.value)}
+          placeholder="--"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Dispatched Through</label>
+        <input
+          value={dispatchedThrough}
+          onChange={(e) => setDispatchedThrough(e.target.value)}
+          placeholder="--"
+        />
       </div>
     </div>
   );

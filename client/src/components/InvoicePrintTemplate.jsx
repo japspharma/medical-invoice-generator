@@ -160,16 +160,17 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
 
           <div className="pt-dispatch">
             <h3 className="pt-heading">ORDER &amp; DISPATCH DETAILS</h3>
-            {/* Party's Order No, Order Date and Dispatched Through are ALWAYS
-                left blank for manual fill-in after printing — never printed
-                from data. */}
+            {/* Party's Order No, Order Date and Dispatched Through come from
+                the billing screen; "--" prints when not provided. */}
             <div className="pt-kv">
               <span className="pt-kv-label">Party&apos;s Order No:</span>
-              <span className="pt-kv-dots pt-kv-fill" />
+              <span className="pt-kv-dots" />
+              <span className="pt-kv-value">{invoice?.partys_order_no || "--"}</span>
             </div>
             <div className="pt-kv">
               <span className="pt-kv-label">Order Date:</span>
-              <span className="pt-kv-dots pt-kv-fill" />
+              <span className="pt-kv-dots" />
+              <span className="pt-kv-value">{invoice?.order_date || "--"}</span>
             </div>
             <div className="pt-kv">
               <span className="pt-kv-label">Payment Terms:</span>
@@ -178,7 +179,8 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
             </div>
             <div className="pt-kv">
               <span className="pt-kv-label">Dispatched Through:</span>
-              <span className="pt-kv-dots pt-kv-fill" />
+              <span className="pt-kv-dots" />
+              <span className="pt-kv-value">{invoice?.dispatched_through || "--"}</span>
             </div>
             <div className="pt-kv">
               <span className="pt-kv-label">LR / RR No:</span>

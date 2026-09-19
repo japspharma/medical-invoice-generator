@@ -25,6 +25,11 @@ function ERP() {
   const [taxType, setTaxType] = useState("INTRA STATE");
   const [paymentType, setPaymentType] = useState("CASH");
 
+  // Order & dispatch details (printed on the invoice; "--" = not provided)
+  const [partysOrderNo, setPartysOrderNo] = useState("--");
+  const [orderDate, setOrderDate] = useState("--");
+  const [dispatchedThrough, setDispatchedThrough] = useState("--");
+
   // Customer details
   const [customerName, setCustomerName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
@@ -152,6 +157,9 @@ const newItem = {
       address: address,
       tax_type: taxType,
       payment_type: paymentType,
+      partys_order_no: partysOrderNo,
+      order_date: orderDate,
+      dispatched_through: dispatchedThrough,
       subtotal: subtotal,
       gst_amount: gstAmount,
       grand_total: grandTotal,
@@ -222,6 +230,9 @@ const newItem = {
     setCurrentRowIndex(null);
     setTaxType("INTRA STATE");
     setPaymentType("CASH");
+    setPartysOrderNo("--");
+    setOrderDate("--");
+    setDispatchedThrough("--");
     setPrintInvoice(null);
   };
 
@@ -247,6 +258,7 @@ const newItem = {
   F9: handlePrint,
   F10: () => navigate("/settings"),
   F11: () => navigate("/purchase-history"),
+  F12: () => navigate("/suppliers"),
   "Ctrl+N": handleNewInvoice,
   "Ctrl+S": saveInvoice,
   "Ctrl+P": handlePrint,
@@ -292,6 +304,12 @@ const newItem = {
           setTaxType={setTaxType}
           paymentType={paymentType}
           setPaymentType={setPaymentType}
+          partysOrderNo={partysOrderNo}
+          setPartysOrderNo={setPartysOrderNo}
+          orderDate={orderDate}
+          setOrderDate={setOrderDate}
+          dispatchedThrough={dispatchedThrough}
+          setDispatchedThrough={setDispatchedThrough}
         />
       </div>
 
@@ -333,6 +351,9 @@ const newItem = {
         <button onClick={() => navigate("/purchase-history")} className="shortcut-btn">
           F11: Purchase History
         </button>
+        <button onClick={() => navigate("/suppliers")} className="shortcut-btn">
+          F12: Suppliers
+        </button>
       </div>
 
       {/* Print-only invoice */}
@@ -348,6 +369,9 @@ const newItem = {
             gst_number: gstNumber,
             address: address,
             tax_type: taxType,
+            partys_order_no: partysOrderNo,
+            order_date: orderDate,
+            dispatched_through: dispatchedThrough,
             items: items,
             subtotal: subtotal,
             gst_amount: gstAmount,

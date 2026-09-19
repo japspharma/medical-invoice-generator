@@ -43,13 +43,12 @@ function Purchase() {
 
   useEffect(() => {
     const loadData = async () => {
-      const [{ data: medicines }, { data: customers }] = await Promise.all([
+      const [{ data: medicines }, { data: suppliers }] = await Promise.all([
         supabase.from("medicines").select("id, medicine_name, hsn, batch, expiry, mrp, rate, gst"),
-        supabase.from("customers").select("customer_name, gst_number, mobile_number, address"),
+        supabase.from("suppliers").select("supplier_name, gst_number, phone, address"),
       ]);
       setKnownMedicines(medicines || []);
-      // Suppliers often live in the customers table too (distributors have GST numbers)
-      setSavedSuppliers(customers || []);
+      setSavedSuppliers(suppliers || []);
     };
     loadData();
   }, []);
@@ -193,11 +192,11 @@ function Purchase() {
   const supplierSuggestions = useMemo(
     () =>
       savedSuppliers
-        .filter((s) => s.customer_name)
+        .filter((s) => s.supplier_name)
         .map((s) => ({
-          id: s.customer_name,
-          label: s.customer_name,
-          detail: [s.gst_number, s.mobile_number].filter(Boolean).join(" · "),
+          id: s.supplier_name,
+          label: s.supplier_name,
+          detail: [s.gst_number, s.phone].filter(Boolean).join(" · "),
           raw: s,
         })),
     [savedSuppliers]
@@ -206,9 +205,9 @@ function Purchase() {
   const onSupplierSelect = (suggestion) => {
     setSupplierName(suggestion.label);
     if (suggestion.raw) {
-      setSupplierGst(suggestion.raw.gst_number || "");
-      setSupplierPhone(suggestion.raw.mobile_number || "");
-      setSupplierAddress(suggestion.raw.address || "");
+    setSupplierGst(suggestion.raw.gst_number || "");
+    setSupplierPhone(suggestion.raw.phone || "");
+    setSupplierAddress(suggestion.raw.address || "");
     }
   };
 

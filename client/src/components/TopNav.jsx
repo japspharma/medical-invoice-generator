@@ -9,6 +9,7 @@ function TopNav() {
     { path: "/purchase-history", label: "Purchase History" },
     { path: "/items", label: "Items" },
     { path: "/customers", label: "Customers" },
+    { path: "/suppliers", label: "Suppliers" },
     { path: "/history", label: "History" },
     { path: "/reports", label: "Reports" },
     { path: "/settings", label: "Settings" },

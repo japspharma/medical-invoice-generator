@@ -261,7 +261,12 @@ function ItemMaster() {
                     <td style={{ textAlign: "center", fontWeight: "bold" }}>{medicine.stock}</td>
                     <td style={{ textAlign: "center" }}>{medicine.minimum_stock}</td>
                     <td>
-                      {isExpired ? (<span className="status-expired">EXPIRED</span>) : isLowStock ? (<span className="status-low">LOW</span>) : (<span className="status-ok">OK</span>)}
+                      {/* Explicit labels so the column is never ambiguous:
+                          EXPIRED = expiry status, LOW STOCK = stock level,
+                          IN STOCK = neither. Both badges can show at once. */}
+                      {isExpired && <span className="status-expired">EXPIRED</span>}
+                      {isLowStock && <span className="status-low">LOW STOCK</span>}
+                      {!isExpired && !isLowStock && <span className="status-ok">IN STOCK</span>}
                     </td>
                     <td className="action-buttons">
                       <button onClick={() => handleEdit(medicine)} className="btn-edit" title="Edit">✏️</button>

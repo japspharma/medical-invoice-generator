@@ -10,6 +10,7 @@ import InvoiceHistory from "./pages/InvoiceHistory";
 import InvoiceDetails from "./pages/InvoiceDetails";
 import ItemMaster from "./pages/ItemMaster";
 import CustomerMaster from "./pages/CustomerMaster";
+import SupplierMaster from "./pages/SupplierMaster";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 
@@ -92,6 +93,14 @@ function App() {
             element={
               <RequireAuth>
                 <CustomerMaster />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/suppliers"
+            element={
+              <RequireAuth>
+                <SupplierMaster />
               </RequireAuth>
             }
           />

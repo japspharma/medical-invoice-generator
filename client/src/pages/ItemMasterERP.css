@@ -132,6 +132,11 @@
   font-weight: bold;
 }
 
+/* Space between the EXPIRED and LOW STOCK badges when both apply */
+.status-expired + .status-low {
+  margin-left: 8px;
+}
+
 .status-expired {
   color: #e74c3c;
   font-weight: bold;

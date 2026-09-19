@@ -173,13 +173,6 @@
   transform: translateY(-2px);
 }
 
-/* Manual fill-in lines (Party's Order No, Order Date, Dispatched Through):
-   stretch the dotted line across the box so there is room to write. */
-.pt-kv-fill {
-  flex: 1 1 auto;
-  min-width: 60px;
-}
-
 .pt-kv-value {
   color: #111;
   font-weight: 600;
