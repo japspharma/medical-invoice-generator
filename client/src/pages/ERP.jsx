@@ -98,6 +98,28 @@ function ERP() {
   const addItem = (product) => {
     const rate = Number(product.rate || product.mrp || 0);
 
+    // ---- Stock & expiry guards -------------------------------------------
+    // Warn at add time so problems surface before billing, not at save.
+    // Expired / zero-stock need explicit confirmation; low stock is a
+    // heads-up only. Confirm() returning false cancels the add.
+    const isExpired =
+      product.expiry && new Date(product.expiry) < new Date();
+    const stock = Number(product.stock || 0);
+    const minStock = Number(product.minimum_stock || 0);
+
+    if (isExpired) {
+      const expDate = new Date(product.expiry).toLocaleDateString("en-IN");
+      if (!confirm(`⚠ EXPIRED MEDICINE: ${product.medicine_name} expired on ${expDate}. Add it anyway?`)) {
+        return;
+      }
+    } else if (stock <= 0) {
+      if (!confirm(`⚠ NO STOCK: ${product.medicine_name} has ${stock} units in stock. Add it anyway?`)) {
+        return;
+      }
+    } else if (minStock > 0 && stock <= minStock) {
+      alert(`⚠ LOW STOCK: ${product.medicine_name} has only ${stock} units left (minimum ${minStock}). Added, but consider reordering.`);
+    }
+
 const newItem = {
   id: Date.now(),
   product: product.medicine_name,
