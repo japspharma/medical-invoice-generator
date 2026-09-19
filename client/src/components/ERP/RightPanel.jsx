@@ -13,6 +13,8 @@ function RightPanel({
   setOrderDate,
   dispatchedThrough,
   setDispatchedThrough,
+  lrRrNo,
+  setLrRrNo,
 }) {
   return (
     <div className="right-panel">
@@ -78,6 +80,15 @@ function RightPanel({
         <input
           value={dispatchedThrough}
           onChange={(e) => setDispatchedThrough(e.target.value)}
+          placeholder="--"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>LR/RR No</label>
+        <input
+          value={lrRrNo}
+          onChange={(e) => setLrRrNo(e.target.value)}
           placeholder="--"
         />
       </div>

@@ -21,6 +21,7 @@ function CustomerMaster() {
   customer_name: "",
   mobile_number: "",
   gst_number: "",
+  dl_no: "",
   address: "",
   city: "",
 });
@@ -113,6 +114,7 @@ function CustomerMaster() {
   customer_name: "",
   mobile_number: "",
   gst_number: "",
+  dl_no: "",
   address: "",
   city: "",
 });
@@ -197,6 +199,17 @@ value={formData.mobile_number}
               </div>
 
               <div className="form-group">
+                <label>DL No</label>
+                <input
+                  type="text"
+                  name="dl_no"
+                  value={formData.dl_no}
+                  onChange={handleFormChange}
+                  placeholder="Drug licence no"
+                />
+              </div>
+
+              <div className="form-group">
                 <label>City</label>
                 <input
                   type="text"
@@ -238,6 +251,7 @@ value={formData.mobile_number}
               <th>Customer Name</th>
 <th>Mobile</th>
 <th>GST Number</th>
+<th>DL No</th>
 <th>City</th>
 <th>Actions</th>
             </tr>
@@ -255,6 +269,7 @@ value={formData.mobile_number}
                   <td>{customer.customer_name}</td>
 <td>{customer.mobile_number}</td>
 <td>{customer.gst_number}</td>
+<td>{customer.dl_no}</td>
 <td>{customer.city}</td>
                   <td className="action-buttons">
                     <button

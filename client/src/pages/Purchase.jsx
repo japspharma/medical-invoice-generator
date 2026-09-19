@@ -26,6 +26,7 @@ function Purchase() {
   // Supplier details
   const [supplierName, setSupplierName] = useState("");
   const [supplierGst, setSupplierGst] = useState("");
+  const [supplierDlNo, setSupplierDlNo] = useState("");
   const [supplierPhone, setSupplierPhone] = useState("");
   const [supplierAddress, setSupplierAddress] = useState("");
   const [invoiceRef, setInvoiceRef] = useState(""); // supplier's invoice/bill no.
@@ -45,7 +46,7 @@ function Purchase() {
     const loadData = async () => {
       const [{ data: medicines }, { data: suppliers }] = await Promise.all([
         supabase.from("medicines").select("id, medicine_name, hsn, batch, expiry, mrp, rate, gst"),
-        supabase.from("suppliers").select("supplier_name, gst_number, phone, address"),
+        supabase.from("suppliers").select("supplier_name, gst_number, dl_no, phone, address"),
       ]);
       setKnownMedicines(medicines || []);
       setSavedSuppliers(suppliers || []);
@@ -141,6 +142,7 @@ function Purchase() {
       const purchaseData = {
         supplier_name: supplierName.trim(),
         supplier_gst: supplierGst.trim(),
+        supplier_dl_no: supplierDlNo.trim(),
         supplier_phone: supplierPhone.trim(),
         supplier_address: supplierAddress.trim(),
         invoice_ref: invoiceRef.trim(),
@@ -182,6 +184,7 @@ function Purchase() {
   const resetForm = () => {
     setSupplierName("");
     setSupplierGst("");
+    setSupplierDlNo("");
     setSupplierPhone("");
     setSupplierAddress("");
     setInvoiceRef("");
@@ -206,6 +209,7 @@ function Purchase() {
     setSupplierName(suggestion.label);
     if (suggestion.raw) {
     setSupplierGst(suggestion.raw.gst_number || "");
+    setSupplierDlNo(suggestion.raw.dl_no || "");
     setSupplierPhone(suggestion.raw.phone || "");
     setSupplierAddress(suggestion.raw.address || "");
     }
@@ -253,6 +257,15 @@ function Purchase() {
                 value={supplierGst}
                 onChange={(e) => setSupplierGst(e.target.value)}
                 placeholder="GST number"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Supplier DL No</label>
+              <input
+                value={supplierDlNo}
+                onChange={(e) => setSupplierDlNo(e.target.value)}
+                placeholder="Drug licence no"
               />
             </div>
 

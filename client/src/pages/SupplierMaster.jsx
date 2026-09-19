@@ -17,6 +17,7 @@ function SupplierMaster() {
   const [formData, setFormData] = useState({
     supplier_name: "",
     gst_number: "",
+    dl_no: "",
     phone: "",
     address: "",
   });
@@ -80,6 +81,7 @@ function SupplierMaster() {
     setFormData({
       supplier_name: supplier.supplier_name || "",
       gst_number: supplier.gst_number || "",
+      dl_no: supplier.dl_no || "",
       phone: supplier.phone || "",
       address: supplier.address || "",
     });
@@ -105,6 +107,7 @@ function SupplierMaster() {
     setFormData({
       supplier_name: "",
       gst_number: "",
+      dl_no: "",
       phone: "",
       address: "",
     });
@@ -175,6 +178,17 @@ function SupplierMaster() {
                 </div>
 
                 <div className="form-group">
+                  <label>DL No</label>
+                  <input
+                    type="text"
+                    name="dl_no"
+                    value={formData.dl_no}
+                    onChange={handleFormChange}
+                    placeholder="Drug licence no"
+                  />
+                </div>
+
+                <div className="form-group">
                   <label>Phone</label>
                   <input
                     type="text"
@@ -213,6 +227,7 @@ function SupplierMaster() {
               <tr>
                 <th>Supplier Name</th>
                 <th>GST Number</th>
+                <th>DL No</th>
                 <th>Phone</th>
                 <th>Address</th>
                 <th>Actions</th>
@@ -230,6 +245,7 @@ function SupplierMaster() {
                   <tr key={supplier.id}>
                     <td>{supplier.supplier_name}</td>
                     <td>{supplier.gst_number}</td>
+                    <td>{supplier.dl_no}</td>
                     <td>{supplier.phone}</td>
                     <td>{supplier.address}</td>
                     <td className="action-buttons">

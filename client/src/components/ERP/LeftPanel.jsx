@@ -10,6 +10,8 @@ function LeftPanel({
   setDoctorReg,
   gstNumber,
   setGstNumber,
+  dlNo,
+  setDlNo,
   address,
   setAddress,
   customerSuggestions = [],
@@ -54,6 +56,15 @@ function LeftPanel({
           value={gstNumber}
           onChange={(e) => setGstNumber(e.target.value)}
           placeholder="GST number"
+        />
+      </div>
+
+      <div className="form-group">
+        <label>DL No</label>
+        <input
+          value={dlNo}
+          onChange={(e) => setDlNo(e.target.value)}
+          placeholder="Drug licence no"
         />
       </div>
 

@@ -156,6 +156,11 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                 {invoice?.gst_number || "(Unregistered)"}
               </span>
             </div>
+            <div className="pt-kv">
+              <span className="pt-kv-label">DL No:</span>
+              <span className="pt-kv-dots" />
+              <span className="pt-kv-value">{invoice?.dl_no || "-"}</span>
+            </div>
           </div>
 
           <div className="pt-dispatch">
@@ -185,7 +190,7 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
             <div className="pt-kv">
               <span className="pt-kv-label">LR / RR No:</span>
               <span className="pt-kv-dots" />
-              <span className="pt-kv-value">{invoice?.lr_rr_no || ""}</span>
+              <span className="pt-kv-value">{invoice?.lr_rr_no || "--"}</span>
             </div>
           </div>
         </section>

@@ -29,12 +29,14 @@ function ERP() {
   const [partysOrderNo, setPartysOrderNo] = useState("--");
   const [orderDate, setOrderDate] = useState("--");
   const [dispatchedThrough, setDispatchedThrough] = useState("--");
+  const [lrRrNo, setLrRrNo] = useState("--");
 
   // Customer details
   const [customerName, setCustomerName] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [doctorReg, setDoctorReg] = useState("");
   const [gstNumber, setGstNumber] = useState("");
+  const [dlNo, setDlNo] = useState("");
   const [address, setAddress] = useState("");
 
   // Items in current invoice
@@ -70,7 +72,7 @@ function ERP() {
       const [{ data: medicineData, error }, { data: settingsData }, { data: customerData }] = await Promise.all([
         supabase.from("medicines").select("*"),
         supabase.from("settings").select("*").eq("id", 1).maybeSingle(),
-        supabase.from("customers").select("customer_name, mobile_number, gst_number, address"),
+        supabase.from("customers").select("customer_name, mobile_number, gst_number, dl_no, address"),
       ]);
       if (error) console.error("Unable to load medicines:", error);
       else setMedicines(medicineData || []);
@@ -182,6 +184,8 @@ const newItem = {
       partys_order_no: partysOrderNo,
       order_date: orderDate,
       dispatched_through: dispatchedThrough,
+      lr_rr_no: lrRrNo,
+      dl_no: dlNo,
       subtotal: subtotal,
       gst_amount: gstAmount,
       grand_total: grandTotal,
@@ -207,7 +211,7 @@ const newItem = {
     // (the RPC also auto-saves brand-new customers)
     const [{ data: freshMedicines }, { data: freshCustomers }] = await Promise.all([
       supabase.from("medicines").select("*"),
-      supabase.from("customers").select("customer_name, mobile_number, gst_number, address"),
+      supabase.from("customers").select("customer_name, mobile_number, gst_number, dl_no, address"),
     ]);
     if (freshMedicines) setMedicines(freshMedicines);
     if (freshCustomers) setCustomers(freshCustomers);
@@ -237,6 +241,7 @@ const newItem = {
     if (suggestion.raw) {
       setMobileNumber(suggestion.raw.mobile_number || "");
       setGstNumber(suggestion.raw.gst_number || "");
+      setDlNo(suggestion.raw.dl_no || "");
       setAddress(suggestion.raw.address || "");
     }
   };
@@ -247,6 +252,7 @@ const newItem = {
     setMobileNumber("");
     setDoctorReg("");
     setGstNumber("");
+    setDlNo("");
     setAddress("");
     setItems([]);
     setCurrentRowIndex(null);
@@ -255,6 +261,7 @@ const newItem = {
     setPartysOrderNo("--");
     setOrderDate("--");
     setDispatchedThrough("--");
+    setLrRrNo("--");
     setPrintInvoice(null);
   };
 
@@ -302,6 +309,8 @@ const newItem = {
           setDoctorReg={setDoctorReg}
           gstNumber={gstNumber}
           setGstNumber={setGstNumber}
+          dlNo={dlNo}
+          setDlNo={setDlNo}
           address={address}
           setAddress={setAddress}
           customerSuggestions={customerSuggestions}
@@ -332,6 +341,8 @@ const newItem = {
           setOrderDate={setOrderDate}
           dispatchedThrough={dispatchedThrough}
           setDispatchedThrough={setDispatchedThrough}
+          lrRrNo={lrRrNo}
+          setLrRrNo={setLrRrNo}
         />
       </div>
 
@@ -394,6 +405,8 @@ const newItem = {
             partys_order_no: partysOrderNo,
             order_date: orderDate,
             dispatched_through: dispatchedThrough,
+            lr_rr_no: lrRrNo,
+            dl_no: dlNo,
             items: items,
             subtotal: subtotal,
             gst_amount: gstAmount,
