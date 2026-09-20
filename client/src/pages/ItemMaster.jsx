@@ -20,6 +20,7 @@ function ItemMaster() {
   const [formData, setFormData] = useState({
     medicine_name: "",
     hsn: "",
+    pack: "",
     batch: "",
     expiry: "",
     mrp: "",
@@ -57,6 +58,7 @@ function ItemMaster() {
       const payload = {
         medicine_name: formData.medicine_name,
         hsn: formData.hsn,
+        pack: formData.pack,
         batch: formData.batch,
         expiry: formData.expiry,
         mrp: parseFloat(formData.mrp) || 0,
@@ -91,6 +93,7 @@ function ItemMaster() {
     setFormData({
       medicine_name: medicine.medicine_name,
       hsn: medicine.hsn || "",
+      pack: medicine.pack || "",
       batch: medicine.batch || "",
       expiry: medicine.expiry || "",
       mrp: medicine.mrp || "",
@@ -120,6 +123,7 @@ function ItemMaster() {
     setFormData({
       medicine_name: "",
       hsn: "",
+      pack: "",
       batch: "",
       expiry: "",
       mrp: "",
@@ -186,6 +190,10 @@ function ItemMaster() {
                 <input type="text" name="hsn" value={formData.hsn} onChange={handleFormChange} />
               </div>
               <div className="form-group">
+                <label>Pack</label>
+                <input type="text" name="pack" value={formData.pack} onChange={handleFormChange} placeholder="e.g. 10x10" />
+              </div>
+              <div className="form-group">
                 <label>Batch Number</label>
                 <input type="text" name="batch" value={formData.batch} onChange={handleFormChange} />
               </div>
@@ -229,6 +237,7 @@ function ItemMaster() {
             <tr>
               <th>Medicine Name</th>
               <th>HSN</th>
+              <th>Pack</th>
               <th>Batch</th>
               <th>Expiry</th>
               <th>MRP</th>
@@ -243,7 +252,7 @@ function ItemMaster() {
           <tbody>
             {filteredMedicines.length === 0 ? (
               <tr>
-                <td colSpan="11" className="no-data">No medicines found. Press F2 to add a new medicine.</td>
+                <td colSpan="12" className="no-data">No medicines found. Press F2 to add a new medicine.</td>
               </tr>
             ) : (
               filteredMedicines.map((medicine) => {
@@ -253,6 +262,7 @@ function ItemMaster() {
                   <tr key={medicine.id} className={isExpired ? "row-expired" : isLowStock ? "row-low-stock" : ""}>
                     <td>{medicine.medicine_name}</td>
                     <td>{medicine.hsn || "—"}</td>
+                    <td>{medicine.pack || "—"}</td>
                     <td>{medicine.batch || "—"}</td>
                     <td>{medicine.expiry ? new Date(medicine.expiry).toLocaleDateString("en-IN") : "—"}</td>
                     <td style={{ textAlign: "right" }}>₹{medicine.mrp?.toFixed(2)}</td>

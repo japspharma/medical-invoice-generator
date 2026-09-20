@@ -85,13 +85,27 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
     const group = groups[groupIndex[key]];
     const taxable = itemAmount(item);
     group.taxable += taxable;
+    // Per-row CGST/SGST percentages (edited at billing) take priority;
+    // fall back to half of the row's GST% each.
+    const cgstPct =
+      item.cgstPct != null && item.cgstPct !== ""
+        ? Number(item.cgstPct)
+        : gst / 2;
+    const sgstPct =
+      item.sgstPct != null && item.sgstPct !== ""
+        ? Number(item.sgstPct)
+        : gst / 2;
     if (isIntraState) {
-      group.cgst += (taxable * gst) / 200;
-      group.sgst += (taxable * gst) / 200;
+      group.cgst += (taxable * cgstPct) / 100;
+      group.sgst += (taxable * sgstPct) / 100;
     } else {
       group.igst += (taxable * gst) / 100;
     }
   });
+
+  const cgstTotal = groups.reduce((sum, g) => sum + g.cgst, 0);
+  const sgstTotal = groups.reduce((sum, g) => sum + g.sgst, 0);
+  const igstTotal = groups.reduce((sum, g) => sum + g.igst, 0);
 
   const goodsValue = items.reduce((sum, item) => sum + itemAmount(item), 0);
   const taxTotal = Number(invoice?.gst_amount || 0);
@@ -293,14 +307,14 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                     {isIntraState ? (
                       <>
                         <td>—</td>
-                        <td>{inr(taxTotal / 2)}</td>
+                        <td>{inr(cgstTotal)}</td>
                         <td>—</td>
-                        <td>{inr(taxTotal / 2)}</td>
+                        <td>{inr(sgstTotal)}</td>
                       </>
                     ) : (
                       <>
                         <td>—</td>
-                        <td>{inr(taxTotal)}</td>
+                        <td>{inr(igstTotal)}</td>
                       </>
                     )}
                   </tr>
@@ -349,13 +363,13 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                       <span>
                         Central GST (CGST {uniformRate !== null ? `${uniformRate / 2}%` : ""}):
                       </span>
-                      <strong>₹{inr(taxTotal / 2)}</strong>
+                      <strong>₹{inr(cgstTotal)}</strong>
                     </div>
                     <div className="pt-sum-row">
                       <span>
                         State GST (SGST {uniformRate !== null ? `${uniformRate / 2}%` : ""}):
                       </span>
-                      <strong>₹{inr(taxTotal / 2)}</strong>
+                      <strong>₹{inr(sgstTotal)}</strong>
                     </div>
                   </>
                 ) : (
