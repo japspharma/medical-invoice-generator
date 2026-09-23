@@ -14,6 +14,9 @@ function InvoiceHistory() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterDate, setFilterDate] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
+  const [deleteTarget, setDeleteTarget] = useState(null); // invoice awaiting mode choice
+  const [clearAll, setClearAll] = useState(false); // modal opened from the Clear All button
   const navigate = useNavigate();
 
   const loadInvoices = async () => {
@@ -45,10 +48,10 @@ function InvoiceHistory() {
   const filteredInvoices = useMemo(() => {
     return invoices.filter((invoice) => {
       const matchesSearch =
-        invoice.invoice_number
+        (invoice.invoice_number || "")
           .toLowerCase()
           .includes(searchTerm.toLowerCase()) ||
-        invoice.customer_name
+        (invoice.customer_name || "")
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
 
@@ -68,6 +71,71 @@ function InvoiceHistory() {
 
   const handleViewInvoice = (invoiceId) => {
     navigate(`/history/${invoiceId}`);
+  };
+
+  const unitsSold = (invoice) =>
+    (invoice.items || []).reduce(
+      (sum, item) =>
+        sum +
+        (Number(item.qty) || 0) +
+        (Number(item.freeQty) || 0) +
+        (Number(item.free) || 0),
+      0
+    );
+
+  const handleDelete = async (mode) => {
+    const target = deleteTarget;
+    if (!target || deletingId) return;
+
+    setDeletingId(target.id);
+    try {
+      const rpcName =
+        mode === "with-stock" ? "delete_invoice_with_stock" : "delete_invoice_only";
+      const { data, error } = await supabase.rpc(rpcName, {
+        p_invoice_id: target.id,
+      });
+      if (error) throw error;
+
+      alert(
+        mode === "with-stock"
+          ? `Invoice deleted. ${data?.units_restored ?? unitsSold(target)} units returned to stock.`
+          : `Invoice ${target.invoice_number} deleted. Stock was NOT changed.`
+      );
+      setInvoices((prev) => prev.filter((inv) => inv.id !== target.id));
+    } catch (err) {
+      console.error("Error deleting invoice:", err);
+      alert("Failed to delete invoice: " + err.message);
+    } finally {
+      setDeletingId(null);
+      setDeleteTarget(null);
+    }
+  };
+
+  const handleClearAll = async (mode) => {
+    if (deletingId) return;
+
+    const count = filteredInvoices.length;
+    setDeletingId("all");
+    try {
+      const rpcName =
+        mode === "with-stock" ? "delete_invoice_with_stock" : "delete_invoice_only";
+      const { data, error } = await supabase.rpc(rpcName, { p_invoice_id: null });
+      if (error) throw error;
+
+      alert(
+        mode === "with-stock"
+          ? `Cleared ${data?.deleted ?? count} invoices. ${data?.units_restored ?? 0} units returned to stock.`
+          : `Cleared ${data?.deleted ?? count} invoices. Stock was NOT changed.`
+      );
+      setInvoices([]);
+    } catch (err) {
+      console.error("Error clearing invoices:", err);
+      alert("Failed to clear invoices: " + err.message);
+    } finally {
+      setDeletingId(null);
+      setDeleteTarget(null);
+      setClearAll(false);
+    }
   };
 
   const handleExportCSV = () => {
@@ -124,6 +192,10 @@ function InvoiceHistory() {
   F9: () => navigate("/reports"),
   F10: () => navigate("/settings"),
   F11: () => navigate("/purchase-history"),
+  Escape: () => {
+    setDeleteTarget(null);
+    setClearAll(false);
+  },
 };
 useKeyboardShortcuts(shortcuts);
 
@@ -176,6 +248,14 @@ useKeyboardShortcuts(shortcuts);
               Clear Filter
             </button>
           )}
+
+          <button
+            className="btn-danger"
+            onClick={() => setClearAll(true)}
+            disabled={filteredInvoices.length === 0 || deletingId === "all"}
+          >
+            🗑 Clear All History
+          </button>
         </div>
       </div>
 
@@ -218,6 +298,7 @@ useKeyboardShortcuts(shortcuts);
                   <th>Date</th>
                   <th>Grand Total</th>
                   <th>Action</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -246,6 +327,15 @@ useKeyboardShortcuts(shortcuts);
                         View
                       </button>
                     </td>
+                    <td>
+                      <button
+                        className="delete-btn"
+                        onClick={() => setDeleteTarget(invoice)}
+                        disabled={!!deletingId}
+                      >
+                        {deletingId === invoice.id ? "…" : "Delete"}
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -253,6 +343,94 @@ useKeyboardShortcuts(shortcuts);
           </div>
         )}
       </div>
+
+      {(deleteTarget || clearAll) && (
+        <div
+          className="modal-overlay"
+          onClick={() => {
+            setDeleteTarget(null);
+            setClearAll(false);
+          }}
+        >
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            {clearAll ? (
+              <>
+                <h3>Clear ALL billing history?</h3>
+                <p className="modal-summary">
+                  <strong>{filteredInvoices.length} invoices</strong> · ₹
+                  {filteredInvoices
+                    .reduce((sum, inv) => sum + (inv.grand_total || 0), 0)
+                    .toFixed(2)}
+                </p>
+                <button
+                  className="modal-btn modal-stock"
+                  onClick={() => handleClearAll("with-stock")}
+                  disabled={!!deletingId}
+                >
+                  Clear All &amp; Restore Stock
+                </button>
+                <p className="modal-hint">
+                  Deletes every invoice AND returns the sold units to medicine
+                  stock. Use when the entire history is test data.
+                </p>
+                <button
+                  className="modal-btn modal-record"
+                  onClick={() => handleClearAll("record-only")}
+                  disabled={!!deletingId}
+                >
+                  Clear History Only
+                </button>
+                <p className="modal-hint">
+                  Deletes every invoice but keeps stock as it is — use when
+                  the stock counts are correct and only the records should go.
+                </p>
+              </>
+            ) : (
+              <>
+                <h3>Delete this invoice?</h3>
+                <p className="modal-summary">
+                  <strong>{deleteTarget.invoice_number}</strong>
+                  {deleteTarget.customer_name ? ` · ${deleteTarget.customer_name}` : ""} ·{" "}
+                  {deleteTarget.items?.length || 0} items · {unitsSold(deleteTarget)} units · ₹
+                  {Number(deleteTarget.grand_total || 0).toFixed(2)}
+                </p>
+                <button
+                  className="modal-btn modal-stock"
+                  onClick={() => handleDelete("with-stock")}
+                  disabled={!!deletingId}
+                >
+                  Delete &amp; Restore Stock
+                </button>
+                <p className="modal-hint">
+                  Deletes the invoice AND returns {unitsSold(deleteTarget)} units
+                  to medicine stock. Use when the bill never actually happened.
+                </p>
+                <button
+                  className="modal-btn modal-record"
+                  onClick={() => handleDelete("record-only")}
+                  disabled={!!deletingId}
+                >
+                  Delete History Only
+                </button>
+                <p className="modal-hint">
+                  Deletes only the record. Stock stays as it is — use when the
+                  sale happened but the entry is wrong or duplicate.
+                </p>
+              </>
+            )}
+            <button
+              className="modal-btn modal-cancel"
+              onClick={() => {
+                setDeleteTarget(null);
+                setClearAll(false);
+              }}
+              disabled={!!deletingId}
+            >
+              Cancel (Esc)
+            </button>
+          </div>
+        </div>
+      )}
     </AppLayout>
   );
 }
