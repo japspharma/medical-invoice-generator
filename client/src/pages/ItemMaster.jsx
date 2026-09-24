@@ -203,23 +203,23 @@ function ItemMaster() {
               </div>
               <div className="form-group">
                 <label>MRP</label>
-                <input type="number" name="mrp" value={formData.mrp} onChange={handleFormChange} step="0.01" />
+                <input type="text" inputMode="decimal" name="mrp" value={formData.mrp} onChange={handleFormChange} />
               </div>
               <div className="form-group">
                 <label>Selling Rate</label>
-                <input type="number" name="rate" value={formData.rate} onChange={handleFormChange} step="0.01" />
+                <input type="text" inputMode="decimal" name="rate" value={formData.rate} onChange={handleFormChange} />
               </div>
               <div className="form-group">
                 <label>GST %</label>
-                <input type="number" name="gst" value={formData.gst} onChange={handleFormChange} step="0.01" />
+                <input type="text" inputMode="decimal" name="gst" value={formData.gst} onChange={handleFormChange} />
               </div>
               <div className="form-group">
                 <label>Current Stock</label>
-                <input type="number" name="stock" value={formData.stock} onChange={handleFormChange} step="1" />
+                <input type="text" inputMode="numeric" name="stock" value={formData.stock} onChange={handleFormChange} />
               </div>
               <div className="form-group">
                 <label>Minimum Stock Level</label>
-                <input type="number" name="minimum_stock" value={formData.minimum_stock} onChange={handleFormChange} step="1" />
+                <input type="text" inputMode="numeric" name="minimum_stock" value={formData.minimum_stock} onChange={handleFormChange} />
               </div>
             </div>
 

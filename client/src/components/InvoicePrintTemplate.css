@@ -229,18 +229,12 @@
 }
 
 /* ---- bottom section ---- */
+/* Stacked full-width: GST bifurcation → bank details → invoice summary */
 .pt-bottom {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  align-items: start;
-}
-
-.pt-bottom-left,
-.pt-bottom-right {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 4px;
 }
 
 .pt-box {
@@ -297,9 +291,12 @@
   background: #f4fbfb;
 }
 
-/* bank details */
+/* bank details — two columns so the full-width box is filled evenly */
 .pt-bank {
   padding: 4px 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
 }
 
 .pt-bank > div {
@@ -318,9 +315,15 @@
   color: #111;
 }
 
-/* summary */
+/* summary — single-column rows; the box spans the full width and the
+   amount values align in one straight vertical line at the right edge */
 .pt-summary {
   padding: 4px 8px 6px;
+}
+
+.pt-sum-grid {
+  display: flex;
+  flex-direction: column;
 }
 
 .pt-sum-row {
@@ -344,18 +347,23 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0e7490;
-  color: #fff;
+  background: #e0f2f1;
+  border: 1.5px solid #0e7490;
+  color: #000;
   border-radius: 4px;
   padding: 6px 8px;
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.4px;
 }
 
+.pt-grand span,
 .pt-grand strong {
-  color: #fff;
+  color: #000;
+}
+
+.pt-grand strong {
   font-size: 13px;
 }
 
@@ -372,14 +380,13 @@
 }
 
 /* ---- footer ---- */
-/* Sits directly after the content above (no bottom-pinning): terms and
-   signature follow the bank/summary boxes instead of jumping to the
-   bottom of the A4 page. */
+/* Pinned near the bottom border of the page frame: terms and signature
+   sit just above the bottom border line, after the content above. */
 .pt-footer {
   display: grid;
   grid-template-columns: 1fr 220px;
   gap: 10px;
-  margin-top: 10px;
+  margin-top: auto;
   padding-top: 8px;
 }
 

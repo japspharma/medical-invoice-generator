@@ -357,44 +357,40 @@ function Purchase() {
                       </td>
                       <td>
                         <input
-                          type="number"
-                          min="0"
+                          type="text"
+                          inputMode="decimal"
                           value={line.qty}
                           onChange={(e) => updateLine(line.id, { qty: e.target.value })}
                         />
                       </td>
                       <td>
                         <input
-                          type="number"
-                          min="0"
+                          type="text"
+                          inputMode="decimal"
                           value={line.free}
                           onChange={(e) => updateLine(line.id, { free: e.target.value })}
                         />
                       </td>
                       <td>
                         <input
-                          type="number"
-                          min="0"
-                          step="0.01"
+                          type="text"
+                          inputMode="decimal"
                           value={line.mrp}
                           onChange={(e) => updateLine(line.id, { mrp: e.target.value })}
                         />
                       </td>
                       <td>
                         <input
-                          type="number"
-                          min="0"
-                          step="0.01"
+                          type="text"
+                          inputMode="decimal"
                           value={line.rate}
                           onChange={(e) => updateLine(line.id, { rate: e.target.value })}
                         />
                       </td>
                       <td>
                         <input
-                          type="number"
-                          min="0"
-                          max="100"
-                          step="0.01"
+                          type="text"
+                          inputMode="decimal"
                           value={line.gst}
                           onChange={(e) => updateLine(line.id, { gst: e.target.value })}
                         />

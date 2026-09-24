@@ -93,21 +93,7 @@ function ERP() {
       return totals;
     }, { subtotal: 0, gstAmount: 0 });
     return { ...result, grandTotal: result.subtotal + result.gstAmount };
-  }, [items]);
-
-  // CGST/SGST amounts for the status bar (sum of each row's editable
-  // percentage; falls back to half of GST% for rows without one)
-  const cgstSgstTotals = useMemo(() => {
-    return items.reduce(
-      (acc, item) => {
-        const amount = Number(item.amount || 0);
-        acc.cgst += (amount * (parseFloat(item.cgstPct ?? Number(item.gst || 0) / 2) || 0)) / 100;
-        acc.sgst += (amount * (parseFloat(item.sgstPct ?? Number(item.gst || 0) / 2) || 0)) / 100;
-        return acc;
-      },
-      { cgst: 0, sgst: 0 }
-    );
-  }, [items]);
+  }, [items]);  
 
   
 
@@ -148,10 +134,6 @@ const newItem = {
   mrp: Number(product.mrp || 0),
   rate,
   gst: Number(product.gst || 0),
-  // CGST/SGST default to what the invoice shows today (half of GST% each);
-  // both stay editable per row and GST% auto-syncs to their sum.
-  cgstPct: Number(product.gst || 0) / 2,
-  sgstPct: Number(product.gst || 0) / 2,
   amount: rate,
 };
     setItems([...items, newItem]);
@@ -369,8 +351,6 @@ const newItem = {
         itemCount={items.length}
         subtotal={subtotal}
         gstAmount={gstAmount}
-        cgst={cgstSgstTotals.cgst}
-        sgst={cgstSgstTotals.sgst}
         taxType={taxType}
         grandTotal={grandTotal}
       />

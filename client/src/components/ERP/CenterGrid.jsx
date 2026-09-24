@@ -60,14 +60,6 @@ function CenterGrid({
       updates.freeQty = parseFloat(value) || 0;
     }
 
-    if (field === "cgstPct" || field === "sgstPct") {
-      // The invoice's GST% is the sum of the two halves, so editing
-      // either half keeps the printed GST% / totals consistent.
-      const cgst = parseFloat(field === "cgstPct" ? value : item.cgstPct) || 0;
-      const sgst = parseFloat(field === "sgstPct" ? value : item.sgstPct) || 0;
-      updates.gst = Number((cgst + sgst).toFixed(2));
-    }
-
     onUpdateItem(index, updates);
   };
 
@@ -165,8 +157,6 @@ function CenterGrid({
               <th style={{ width: "45px" }}>MRP</th>
               <th style={{ width: "45px" }}>RATE</th>
               <th style={{ width: "40px" }}>GST%</th>
-              <th style={{ width: "42px" }} title="Editable — defaults to half of GST%">CGST%</th>
-              <th style={{ width: "42px" }} title="Editable — defaults to half of GST%">SGST%</th>
               <th style={{ width: "60px" }}>AMOUNT</th>
               <th style={{ width: "34px" }} title="Remove item">✕</th>
             </tr>
@@ -218,7 +208,8 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-  type="number"
+  type="text"
+  inputMode="decimal"
   value={item.qty}
   onChange={(e) =>
     handleFieldChange(index,"qty",e.target.value)
@@ -232,8 +223,8 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                    type="number"
-                    min="0"
+                    type="text"
+                    inputMode="decimal"
                     value={item.freeQty || 0}
                     onChange={(e) => handleFieldChange(index, "freeQty", e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, index)}
@@ -241,16 +232,16 @@ function CenterGrid({
                 </td>
                 <td>
                   <input
-                    type="number"
-                    step="0.01"
-                    min="0"
+                    type="text"
+                    inputMode="decimal"
                     value={item.mrp ?? ""}
                     onChange={(e) => handleFieldChange(index, "mrp", e.target.value)}
                   />
                 </td>
                 <td>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="decimal"
                     value={item.rate || ""}
                     onChange={(e) => handleFieldChange(index, "rate", e.target.value)}
                     onKeyDown={(e) => handleKeyDown(e, index, "rate")}
@@ -262,24 +253,6 @@ function CenterGrid({
                     type="text"
                     value={item.gst}
                     readOnly
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={item.cgstPct ?? ""}
-                    onChange={(e) => handleFieldChange(index, "cgstPct", e.target.value)}
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    step="0.01"
-                    min="0"
-                    value={item.sgstPct ?? ""}
-                    onChange={(e) => handleFieldChange(index, "sgstPct", e.target.value)}
                   />
                 </td>
                 <td style={{ textAlign: "right", color: "#2ecc71", fontWeight: "bold" }}>

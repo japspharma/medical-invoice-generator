@@ -1,6 +1,4 @@
-function StatusBar({ itemCount, subtotal, gstAmount, cgst, sgst, taxType, grandTotal }) {
-  const cgstAmount = cgst ?? gstAmount / 2;
-  const sgstAmount = sgst ?? gstAmount / 2;
+function StatusBar({ itemCount, subtotal, gstAmount, taxType, grandTotal }) {
   return (
     <div className="status-bar">
       <div className="status-item">
@@ -18,24 +16,12 @@ function StatusBar({ itemCount, subtotal, gstAmount, cgst, sgst, taxType, grandT
         <span className="status-value">₹ {gstAmount.toFixed(2)}</span>
       </div>
 
-      {taxType !== "INTER STATE" ? (
-        <>
-          <div className="status-item">
-            <label className="status-label">CGST:</label>
-            <span className="status-value">₹ {cgstAmount.toFixed(2)}</span>
-          </div>
-
-          <div className="status-item">
-            <label className="status-label">SGST:</label>
-            <span className="status-value">₹ {sgstAmount.toFixed(2)}</span>
-          </div>
-        </>
-      ) : (
+      {taxType === "INTER STATE" ? (
         <div className="status-item">
           <label className="status-label">IGST:</label>
           <span className="status-value">₹ {gstAmount.toFixed(2)}</span>
         </div>
-      )}
+      ) : null}
 
       <div className="status-item">
         <label className="status-label">Grand Total:</label>

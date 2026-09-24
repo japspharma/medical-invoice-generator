@@ -254,9 +254,8 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
           </tbody>
         </table>
 
-        {/* Bifurcation + bank | summary */}
+        {/* Bifurcation (full width) → bank (full width) → summary (full width) */}
         <section className="pt-bottom">
-          <div className="pt-bottom-left">
             <div className="pt-box">
               <div className="pt-box-title">
                 GST TAX BIFURCATION SCHEDULE (PHARMA COMPLIANCE)
@@ -347,12 +346,11 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="pt-bottom-right">
-            <div className="pt-box">
+          <div className="pt-box">
               <div className="pt-box-title">INVOICE SUMMARY</div>
               <div className="pt-summary">
+                <div className="pt-sum-grid">
                 <div className="pt-sum-row">
                   <span>Total Goods Value (Taxable):</span>
                   <strong>₹{inr(goodsValue)}</strong>
@@ -388,6 +386,7 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                     {roundSign} {inr(Math.abs(roundOff))}
                   </strong>
                 </div>
+                </div>
                 <div className="pt-grand">
                   <span>GRAND TOTAL:</span>
                   <strong>₹{inr(grandTotal)}</strong>
@@ -401,7 +400,6 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                 </div>
               </div>
             </div>
-          </div>
         </section>
 
         {/* Terms + signatory */}
