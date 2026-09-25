@@ -380,14 +380,23 @@
 }
 
 /* ---- footer ---- */
-/* Pinned near the bottom border of the page frame: terms and signature
-   sit just above the bottom border line, after the content above. */
+/* Signature sits above the full-width terms box, with breathing room
+   after the summary; the terms block is pinned near the bottom border. */
 .pt-footer {
-  display: grid;
-  grid-template-columns: 1fr 220px;
-  gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   margin-top: auto;
-  padding-top: 8px;
+  padding-top: 10px;
+}
+
+.pt-sign {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 26px;
+  padding-right: 6px;
 }
 
 .pt-terms ol {
@@ -396,15 +405,6 @@
   font-size: 8.5px;
   color: #333;
   line-height: 1.5;
-}
-
-.pt-sign {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 26px;
-  padding-bottom: 4px;
 }
 
 .pt-sign > strong {
@@ -418,7 +418,7 @@
   color: #0b5c73;
   border-top: 1px dashed #7fc4d1;
   padding-top: 3px;
-  width: 100%;
+  min-width: 180px;
   text-align: center;
 }
 
@@ -426,13 +426,13 @@
 @media print {
   @page {
     size: A4 portrait;
-    margin: 4mm;
+    margin: 14mm 12mm 12mm;
   }
 
   .print-template {
     width: 202mm !important;
     min-height: 289mm;
-    padding: 2mm 2mm 0;
+    padding: 0 2mm;
     margin: 0 !important;
     border: none;
     page-break-inside: avoid;

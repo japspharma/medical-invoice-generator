@@ -402,8 +402,12 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
             </div>
         </section>
 
-        {/* Terms + signatory */}
+        {/* Signature above the full-width terms block */}
         <section className="pt-footer">
+          <div className="pt-sign">
+            <strong>For {company.company_name}</strong>
+            <span className="pt-sign-line">Authorised Signatory</span>
+          </div>
           <div className="pt-terms">
             <div className="pt-box-title">TERMS &amp; CONDITIONS</div>
             <ol>
@@ -421,10 +425,6 @@ const InvoicePrintTemplate = forwardRef(({ invoice, settings }, ref) => {
                 This is a computer generated invoice and requires authorized signature.
               </li>
             </ol>
-          </div>
-          <div className="pt-sign">
-            <strong>For {company.company_name}</strong>
-            <span className="pt-sign-line">Authorised Signatory</span>
           </div>
         </section>
       </div>

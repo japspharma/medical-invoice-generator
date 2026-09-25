@@ -193,7 +193,9 @@ const newItem = {
       gst_amount: gstAmount,
       grand_total: grandTotal,
       items: items,
-      created_at: new Date().toISOString(),
+      // Honour the date chosen in the Invoice Date field (YYYY-MM-DD);
+      // falls back to now when untouched.
+      created_at: currentDate || new Date().toISOString(),
     };
 
     // One atomic call: inserts the invoice AND decrements stock in a single
@@ -265,6 +267,7 @@ const newItem = {
     setOrderDate("--");
     setDispatchedThrough("--");
     setLrRrNo("--");
+    setCurrentDate(new Date().toISOString().split("T")[0]);
     setPrintInvoice(null);
   };
 
