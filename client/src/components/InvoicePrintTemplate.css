@@ -423,18 +423,18 @@
 }
 
 /* ---- print ---- */
-/* Printable A4 area with @page margins (14/12/12mm) is 186mm wide ×
-   271mm tall — the template must fit inside it or content gets clipped
+/* Printable A4 area with @page margins (20/12/12mm) is 186mm wide ×
+   265mm tall — the template must fit inside it or content gets clipped
    and a blank second page appears. width:100% = 186mm. */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 14mm 12mm 12mm;
+    margin: 20mm 12mm 12mm;
   }
 
   .print-template {
     width: 100% !important;
-    min-height: 270mm;
+    min-height: 264mm;
     padding: 0;
     margin: 0 !important;
     border: none;
