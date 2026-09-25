@@ -451,4 +451,26 @@
        frame needs its own top line so it always shows. */
     border-top: 1.5px solid #0e7490;
   }
+
+  /* Tighten vertical rhythm (print only) so ALL content — including
+     the frame's bottom border — fits inside the printable area on
+     one page. At 186mm width the content runs ~270mm; these shave
+     ~10mm without changing the on-screen look. */
+  .pt-items {
+    margin: 3px 0;
+  }
+
+  .pt-items tbody tr {
+    height: 18px;
+  }
+
+  .pt-bottom {
+    gap: 6px;
+    margin-top: 3px;
+  }
+
+  .pt-footer {
+    gap: 6px;
+    padding-top: 6px;
+  }
 }
