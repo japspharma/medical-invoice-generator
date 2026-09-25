@@ -424,8 +424,10 @@
 
 /* ---- print ---- */
 /* Printable A4 area with @page margins (20/12/12mm) is 186mm wide ×
-   265mm tall — the template must fit inside it or content gets clipped
-   and a blank second page appears. width:100% = 186mm. */
+   265mm tall. The sheet must fit INSIDE it (with rounding slack) or
+   the bottom border gets clipped and a blank second page appears.
+   print-color-adjust forces the teal band/headers to print even when
+   "Background graphics" is unticked in the print dialog. */
 @media print {
   @page {
     size: A4 portrait;
@@ -434,14 +436,19 @@
 
   .print-template {
     width: 100% !important;
-    min-height: 264mm;
+    min-height: 262mm;
     padding: 0;
     margin: 0 !important;
     border: none;
     page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .pt-body {
     padding: 4px 6px 5px;
+    /* The band normally forms the top edge on screen; in print the
+       frame needs its own top line so it always shows. */
+    border-top: 1.5px solid #0e7490;
   }
 }
