@@ -3,6 +3,7 @@ function RightPanel({
   invoiceNumber,
   setInvoiceNumber,
   currentDate,
+  setCurrentDate,
   taxType,
   setTaxType,
   paymentType,
@@ -34,7 +35,7 @@ function RightPanel({
         <input
           type="date"
           value={currentDate}
-          readOnly
+          onChange={(e) => setCurrentDate(e.target.value)}
         />
       </div>
 

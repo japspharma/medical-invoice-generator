@@ -21,7 +21,9 @@ const createInvoiceNumber = () => `INV-${Date.now()}`;
 function ERP() {
   const navigate = useNavigate();
   const [invoiceNumber, setInvoiceNumber] = useState(createInvoiceNumber);
-  const [currentDate] = useState(() => new Date().toISOString().split("T")[0]);
+  const [currentDate, setCurrentDate] = useState(
+    () => new Date().toISOString().split("T")[0]
+  );
   const [taxType, setTaxType] = useState("INTRA STATE");
   const [paymentType, setPaymentType] = useState("CASH");
 
@@ -332,6 +334,7 @@ const newItem = {
           invoiceNumber={invoiceNumber}
           setInvoiceNumber={setInvoiceNumber}
           currentDate={currentDate}
+          setCurrentDate={setCurrentDate}
           taxType={taxType}
           setTaxType={setTaxType}
           paymentType={paymentType}
