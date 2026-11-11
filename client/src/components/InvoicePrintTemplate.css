@@ -190,12 +190,16 @@
 .pt-items th {
   background: #0e7490;
   color: #fff;
-  font-size: 8.5px;
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.3px;
-  padding: 4px 3px;
+  letter-spacing: 0.2px;
+  padding: 5px 3px;
   border: 1px solid #0b5c73;
-  white-space: nowrap;
+  line-height: 1.25;
+  /* Allow multi-word headings (BATCH NO, AMOUNT) to wrap instead of
+     being clipped, now that the header text is larger. */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .pt-items td {
@@ -229,7 +233,9 @@
 }
 
 .pt-items tbody tr {
-  height: 25px;
+  /* 8 rows now instead of 12; taller rows keep the table block roughly
+     the same height so the rest of the invoice does not shift. */
+  height: 42px;
 }
 
 /* ---- bottom section ---- */
@@ -465,7 +471,7 @@
   }
 
   .pt-items tbody tr {
-    height: 22px;
+    height: 40px;
   }
 
   .pt-bottom {

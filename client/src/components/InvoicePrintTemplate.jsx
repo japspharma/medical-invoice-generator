@@ -15,7 +15,7 @@ const COMPANY_DEFAULTS = {
   branch: "Nungambakkam Branch, Chennai",
 };
 
-const ITEM_ROWS = 12; // fixed row count like the printed format
+const ITEM_ROWS = 8; // fixed row count like the printed format
 
 const inr = (value) =>
   Number(value || 0).toLocaleString("en-IN", {
