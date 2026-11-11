@@ -25,7 +25,7 @@
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 4px;
-  padding: 6px 0;
+  padding: 5px 0;
   border-radius: 3px;
 }
 
@@ -43,7 +43,7 @@
 .pt-top {
   display: flex;
   gap: 10px;
-  padding: 6px 0 5px;
+  padding: 4px 0;
   border-bottom: 1.5px solid #0e7490;
 }
 
@@ -127,7 +127,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
-  padding: 4px 0;
+  padding: 3px 0;
   border-bottom: 1.5px solid #0e7490;
 }
 
@@ -158,7 +158,7 @@
   align-items: baseline;
   gap: 3px;
   font-size: 9.5px;
-  line-height: 1.55;
+  line-height: 1.4;
 }
 
 .pt-kv-label {
@@ -193,7 +193,7 @@
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.2px;
-  padding: 5px 3px;
+  padding: 4px 3px;
   border: 1px solid #0b5c73;
   line-height: 1.25;
   /* Allow multi-word headings (BATCH NO, AMOUNT) to wrap instead of
@@ -216,14 +216,16 @@
 }
 
 .pt-items .pt-col-product {
-  width: 24%;
+  /* Wider so a 2-3 line medicine name needs fewer lines and the table
+     stays inside its share of the page. */
+  width: 26%;
 }
 
 .pt-items .pt-product {
   text-align: left;
   font-weight: 700;
-  font-size: 12px;
-  line-height: 1.35;
+  font-size: 11px;
+  line-height: 1.25;
   white-space: normal;
 }
 
@@ -233,9 +235,10 @@
 }
 
 .pt-items tbody tr {
-  /* 8 rows now instead of 12; taller rows keep the table block roughly
-     the same height so the rest of the invoice does not shift. */
-  height: 42px;
+  /* 8 rows instead of 12. Rows are sized so the whole table block keeps
+     the footprint of the old 12-row table (12 × 20px = 8 × 30px), which
+     is what keeps the summary and footer inside the A4 page. */
+  height: 30px;
 }
 
 /* ---- bottom section ---- */
@@ -259,7 +262,7 @@
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.4px;
-  padding: 3px 8px;
+  padding: 2px 8px;
   border-bottom: 1px solid #0e7490;
 }
 
@@ -274,7 +277,7 @@
   background: #f4fbfb;
   color: #0b5c73;
   font-weight: 700;
-  padding: 3px 6px;
+  padding: 2px 6px;
   border-bottom: 1px solid #b5e0e7;
   text-align: right;
   white-space: nowrap;
@@ -285,7 +288,7 @@
 }
 
 .pt-gst td {
-  padding: 3px 6px;
+  padding: 2px 6px;
   border-bottom: 1px solid #e3f1f3;
   text-align: right;
 }
@@ -312,7 +315,7 @@
 .pt-bank > div {
   display: flex;
   font-size: 9.5px;
-  line-height: 1.6;
+  line-height: 1.45;
 }
 
 .pt-bank span {
@@ -328,7 +331,7 @@
 /* summary — single-column rows; the box spans the full width and the
    amount values align in one straight vertical line at the right edge */
 .pt-summary {
-  padding: 4px 8px 6px;
+  padding: 2px 8px 3px;
 }
 
 .pt-sum-grid {
@@ -341,7 +344,7 @@
   justify-content: space-between;
   gap: 6px;
   font-size: 9.5px;
-  line-height: 1.7;
+  line-height: 1.45;
 }
 
 .pt-sum-row span {
@@ -361,8 +364,8 @@
   border: 1.5px solid #0e7490;
   color: #000;
   border-radius: 4px;
-  padding: 6px 8px;
-  margin-top: 6px;
+  padding: 5px 8px;
+  margin-top: 3px;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.4px;
@@ -378,9 +381,9 @@
 }
 
 .pt-words {
-  margin-top: 6px;
+  margin-top: 3px;
   border-top: 1px dashed #b5e0e7;
-  padding-top: 4px;
+  padding-top: 2px;
   font-size: 9.5px;
   color: #333;
 }
@@ -405,16 +408,16 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: flex-end;
-  gap: 26px;
+  gap: 8px;
   padding-right: 6px;
 }
 
 .pt-terms ol {
-  margin: 3px 0 0;
+  margin: 2px 0 0;
   padding-left: 16px;
   font-size: 8.5px;
   color: #333;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .pt-sign > strong {
@@ -433,20 +436,24 @@
 }
 
 /* ---- print ---- */
-/* Printable A4 area with @page margins (20/12/12mm) is 186mm wide ×
-   265mm tall. The sheet must fit INSIDE it (with rounding slack) or
+/* Printable A4 area with @page margins (10/12/8mm) is 186mm wide ×
+   279mm tall. The sheet must fit INSIDE it (with rounding slack) or
    the bottom border gets clipped and a blank second page appears.
+   The same @page values are set in App.css — both must match, since
+   a duplicate @page rule is resolved by stylesheet order.
    print-color-adjust forces the teal band/headers to print even when
    "Background graphics" is unticked in the print dialog. */
 @media print {
   @page {
     size: A4 portrait;
-    margin: 20mm 12mm 12mm;
+    /* Mirrors App.css. The tighter top/bottom margins give a 279mm
+       printable height, which the sheet (272-275mm) fits inside. */
+    margin: 10mm 12mm 8mm;
   }
 
   .print-template {
     width: 100% !important;
-    min-height: 262mm;
+    min-height: 272mm;
     padding: 0;
     margin: 0 !important;
     border: none;
@@ -467,20 +474,22 @@
      one page. At 186mm width the content runs ~270mm; these shave
      ~10mm without changing the on-screen look. */
   .pt-items {
-    margin: 3px 0;
+    margin: 2px 0;
   }
 
   .pt-items tbody tr {
-    height: 40px;
+    /* 8 × 26px = 208px against the old 12 × 18px = 216px block, so the
+       page ends up marginally shorter than before — nothing clipped. */
+    height: 26px;
   }
 
   .pt-bottom {
-    gap: 6px;
+    gap: 3px;
     margin-top: 3px;
   }
 
   .pt-footer {
-    gap: 6px;
-    padding-top: 6px;
+    gap: 3px;
+    padding-top: 2px;
   }
 }

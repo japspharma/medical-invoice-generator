@@ -326,7 +326,9 @@ tbody tr:hover {
 
   @page {
     size: A4;
-    margin: 20mm 12mm 12mm;
+    /* Keep in sync with InvoicePrintTemplate.css: the printable height is
+       279mm, which the invoice sheet must fit into or its footer clips. */
+    margin: 10mm 12mm 8mm;
   }
 }
 .top-nav {
